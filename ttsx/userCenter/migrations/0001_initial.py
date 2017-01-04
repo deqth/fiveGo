@@ -21,6 +21,9 @@ class Migration(migrations.Migration):
                 ('address', models.CharField(max_length=50)),
                 ('isDelete', models.BooleanField(default=0)),
             ],
+            options={
+                'db_table': 'address_info',
+            },
         ),
         migrations.CreateModel(
             name='cart',
