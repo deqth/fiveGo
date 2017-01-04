@@ -103,14 +103,21 @@ $(function(){
 		}
 
 	}
-	$("#tijiao").click(function(event) {
-            event.preventDefault();
-		    $('form').submit(function() {
-				alert(10)
+	// $("#tijiao").click(function(event) {
+    //
+	// 	    alert(10)
+    //
+     //        // event.preventDefault();
+	//
+    //
+     //    });
+
+  $('form').submit(function() {
 		check_user_name();
 		check_pwd();
 		check_cpwd();
 		check_email();
+	    event.preventDefault();
 		if(error_name == false && error_password == false && error_check_password == false && error_email == false && error_check == false)
 		{
 			$.post("create/", { name: $('#user_name').val(), pwd: $('#pwd').val(), email:$('#email').val()}, function(data){
@@ -126,10 +133,6 @@ $(function(){
 		}
 
 	});
-
-        });
-
-
 
 
 
