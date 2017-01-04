@@ -21,8 +21,8 @@ class address_info(models.Model):
     address = models.CharField(max_length=50)
     user = models.ForeignKey(user)
     isDelete = models.BooleanField(default=0)
-class Meta:
-    db_table = 'address_info'
+    class Meta:
+        db_table = 'address_info'
 class OrderInfo(models.Model):
     user = models.ForeignKey(user)
     state = models.BooleanField()
