@@ -115,7 +115,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
-#默认缓存时间为13天
+# #默认缓存时间为13天
 # SESSION_ENGINE = 'redis_sessions.session'
 # SESSION_REDIS_HOST = 'localhost'
 # SESSION_REDIS_PORT = 6379
