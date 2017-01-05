@@ -2,6 +2,6 @@
 from django.conf.urls import url
 from userCenter import views
 urlpatterns = [
-   url(r'^register/$', views.register),
-   url(r'^register/create/$', views.createUser),
+   url(r'^login/$', views.login_split,{'get':views.login,'post':views.toLogin},name='login'),
+   url(r'^register/$', views.register_split,{'get':views.register,'post':views.createUser},name='register'),
  ]
