@@ -1,16 +1,11 @@
 #coding=utf-8
-from django.db import models
+# from django.db import models
 from shopping.models import *
+from django.contrib.auth.models import User
 
-class user(models.Model):
-    username = models.CharField(max_length=20)
-    passwd = models.CharField(max_length=30)
-    email = models.EmailField()
-    class Meta:
-        db_table = 'user'
 class cart(models.Model):
     num = models.IntegerField()
-    user = models.ForeignKey(user)
+    user = models.ForeignKey(User)
     goods_info = models.ForeignKey(GoodsInfo)
     class Meta:
         db_table = 'cart'
@@ -19,12 +14,12 @@ class address_info(models.Model):
     email = models.EmailField()
     zipcode = models.CharField(max_length=10)
     address = models.CharField(max_length=50)
-    user = models.ForeignKey(user)
+    user = models.ForeignKey(User)
     isDelete = models.BooleanField(default=0)
     class Meta:
         db_table = 'address_info'
 class OrderInfo(models.Model):
-    user = models.ForeignKey(user)
+    user = models.ForeignKey(User)
     state = models.BooleanField()
     total = models.DecimalField(max_digits=5,decimal_places=2)
     class Meta:

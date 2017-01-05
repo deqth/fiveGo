@@ -2,11 +2,13 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('shopping', '0001_initial'),
     ]
 
@@ -20,6 +22,7 @@ class Migration(migrations.Migration):
                 ('zipcode', models.CharField(max_length=10)),
                 ('address', models.CharField(max_length=50)),
                 ('isDelete', models.BooleanField(default=0)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'db_table': 'address_info',
@@ -31,6 +34,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('num', models.IntegerField()),
                 ('goods_info', models.ForeignKey(to='shopping.GoodsInfo')),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'db_table': 'cart',
@@ -56,41 +60,15 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('state', models.BooleanField()),
                 ('total', models.DecimalField(max_digits=5, decimal_places=2)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'db_table': 'OrderInfo',
             },
         ),
-        migrations.CreateModel(
-            name='user',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('username', models.CharField(max_length=20)),
-                ('passwd', models.CharField(max_length=30)),
-                ('email', models.EmailField(max_length=254)),
-            ],
-            options={
-                'db_table': 'user',
-            },
-        ),
-        migrations.AddField(
-            model_name='orderinfo',
-            name='user',
-            field=models.ForeignKey(to='userCenter.user'),
-        ),
         migrations.AddField(
             model_name='orderdetailinfo',
             name='order',
             field=models.ForeignKey(to='userCenter.OrderInfo'),
-        ),
-        migrations.AddField(
-            model_name='cart',
-            name='user',
-            field=models.ForeignKey(to='userCenter.user'),
-        ),
-        migrations.AddField(
-            model_name='address_info',
-            name='user',
-            field=models.ForeignKey(to='userCenter.user'),
         ),
     ]
