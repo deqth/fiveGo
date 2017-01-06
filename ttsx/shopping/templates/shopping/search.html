@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+天天生鲜-商品列表
+{% endblock %}
+
+
+{% block head %}
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="{%static 'css/reset.css'%}">
+	<link rel="stylesheet" type="text/css" href="{%static 'css/main.css'%}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="search_bar clearfix">
+		<a href="index.html" class="logo fl"><img src="{% static 'images/logo.png' %}"></a>
+		<div class="search_con fl">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+			<input type="button" class="input_btn fr" name="" value="搜索">
+		</div>
+		<div class="guest_cart fr">
+			<a href="#" class="cart_name fl">我的购物车</a>
+			<div class="goods_count fl">1</div>
+		</div>
+	</div>
+
+	<div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>搜索结果</h1>
+			</div>
+			<ul class="navlist fl">
+				<li><a href="{% url 'shopping:index' %}">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="main_wrap clearfix">
+		<div class="l_wrap fl clearfix">
+			<div class="new_goods">
+				<h3>新品推荐</h3>
+				<ul>
+                    {%for temp in newgoods %}
+					<li>
+						<a href="#"><img src="{{temp.smallImg}}"></a>
+						<h4><a href="#">{{temp.info}}</a></h4>
+						<div class="prize">￥{{ temp.price }}</div>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div class="r_wrap fr clearfix">
+			<ul class="goods_type_list clearfix">
+				{%for temp in results%}
+				<li>
+					<a href="detail.html"><img src="{{temp.smallImg}}"></a>
+					<h4><a href="detail.html">{{temp.info}}</a></h4>
+					<div class="operate">
+						<span class="prize">￥{{temp.price}}</span>
+						<span class="unit">{{temp.price}}/{{temp.unit}}</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+				{%endfor%}
+			</ul>
+
+            <div class="pagenation">
+                {% if pPrev == pIndex %}
+                    <a href="{% url 'shopping:search' attr pPrev %}">首页</a>
+                    {% else %}
+                    <a href="{% url 'shopping:search' attr pPrev %}">上一页</a>
+                {% endif %}
+                {% for pindex in num %}
+                    {% if pindex == pIndex %}
+                    <a href="{% url 'shopping:search' attr pindex %}" class="active">{{ pindex }}</a>
+                    {% else %}
+                        <a href="{% url 'shopping:search' attr pindex %}">{{ pindex }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if pNext == pIndex %}
+                    <a href="{% url 'shopping:search' attr pNext %}">末页</a>
+                    {% else %}
+                    <a href="{% url 'shopping:search' attr pNext %}">下一页</a>
+                {% endif %}
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

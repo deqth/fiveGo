@@ -39,6 +39,7 @@ $(function(){
 
 
 	function check_user_name(){
+		$('.user_error').hide()
 		var len = $('#user_name').val().length;
 		if(len<5||len>20)
 		{
@@ -103,14 +104,6 @@ $(function(){
 		}
 
 	}
-	// $("#tijiao").click(function(event) {
-    //
-	// 	    alert(10)
-    //
-     //        // event.preventDefault();
-	//
-    //
-     //    });
 
   $('form').submit(function() {
 		check_user_name();
@@ -120,12 +113,14 @@ $(function(){
 	    event.preventDefault();
 		if(error_name == false && error_password == false && error_check_password == false && error_email == false && error_check == false)
 		{
-			$.post("create/", { name: $('#user_name').val(), pwd: $('#pwd').val(), email:$('#email').val()}, function(data){
-                   alert("Data Loaded: " + data);
-
+			$.post("", { name: $('#user_name').val(), pwd: $('#pwd').val(), email:$('#email').val()}, function(data){
+                   if(data.register){
+					   window.location.href = ''
+				   }else {
+					   $('.user_error').show()
+				   }
               });
 			return true;
-
 		}
 		else
 		{
@@ -133,12 +128,5 @@ $(function(){
 		}
 
 	});
-
-
-
-
-
-
-
 
 })
