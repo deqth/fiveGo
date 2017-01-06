@@ -10,6 +10,7 @@ class cart(models.Model):
     class Meta:
         db_table = 'cart'
 class address_info(models.Model):
+    receiver = models.CharField(max_length=15)
     tel = models.CharField(max_length=15)
     email = models.EmailField()
     zipcode = models.CharField(max_length=10)
