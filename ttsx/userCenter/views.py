@@ -54,6 +54,12 @@ def toLogin(request):
         auth.login(request,user)
         isLogin = True
     return  JsonResponse({'login':isLogin})
+#退出登陆
+def logout_view(request):
+    auth.logout(request)
+# 可以根据需求跳转到特定页面
+    return HttpResponseRedirect("/userCenter/login/")
+
 
 # def test(request):
 #     if  request.user.is_authenticated():
