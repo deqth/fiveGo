@@ -16,8 +16,11 @@
     <div class="search_bar clearfix">
 		<a href="index.html" class="logo fl"><img src="{% static 'images/logo.png' %}"></a>
 		<div class="search_con fl">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
+			<form action="{% url 'shopping:search' 'id' 1%}" method="get">
+			<input type="text" class="input_text fl" name="search_good" id="search_text" placeholder="搜索商品">
+			<input type="submit" class="input_btn fr" id="search_button" value="搜索">
+            <p><span id='search_result'></span></p>
+            </form>
 		</div>
 		<div class="guest_cart fr">
 			<a href="#" class="cart_name fl">我的购物车</a>
@@ -72,21 +75,21 @@
 
             <div class="pagenation">
                 {% if pPrev == pIndex %}
-                    <a href="{% url 'shopping:search' attr pPrev %}">首页</a>
+                    <a href="{% url 'shopping:search' attr pPrev %}?search_good={{ search_good }}">首页</a>
                     {% else %}
-                    <a href="{% url 'shopping:search' attr pPrev %}">上一页</a>
+                    <a href="{% url 'shopping:search' attr pPrev %}?search_good={{ search_good }}">上一页</a>
                 {% endif %}
                 {% for pindex in num %}
                     {% if pindex == pIndex %}
-                    <a href="{% url 'shopping:search' attr pindex %}" class="active">{{ pindex }}</a>
+                    <a href="{% url 'shopping:search' attr pindex %}?search_good={{ search_good }}" class="active">{{ pindex }}</a>
                     {% else %}
-                        <a href="{% url 'shopping:search' attr pindex %}">{{ pindex }}</a>
+                        <a href="{% url 'shopping:search' attr pindex %}?search_good={{ search_good }}">{{ pindex }}</a>
                     {% endif %}
                 {% endfor %}
                 {% if pNext == pIndex %}
-                    <a href="{% url 'shopping:search' attr pNext %}">末页</a>
+                    <a href="{% url 'shopping:search' attr pNext %}?search_good={{ search_good }}">末页</a>
                     {% else %}
-                    <a href="{% url 'shopping:search' attr pNext %}">下一页</a>
+                    <a href="{% url 'shopping:search' attr pNext %}?search_good={{ search_good }}">下一页</a>
                 {% endif %}
 
 			</div>

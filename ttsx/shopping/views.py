@@ -17,7 +17,7 @@ def index(request):
 
 
 def search(request, attr, pIndex):
-    search_good = request.POST['search_good']
+    search_good = request.GET['search_good']
     results = GoodsInfo.objects.filter(info__contains=search_good)
     results_order = results.order_by(attr)
     p = Paginator(results_order, 10)
@@ -35,8 +35,9 @@ def search(request, attr, pIndex):
     newlist = []
     for i in range(0,2):
         newlist.append(newgoods[random.randint(0,len(newgoods)-1)])
-    context = {'newgoods':newlist, 'results':goods_now, 'attr':attr, 'pIndex':pIndex, 'num':page_num, 'pNext':pNext, 'pPrev':pPrev}
+    context = {'newgoods':newlist, 'results':goods_now, 'attr':attr, 'pIndex':pIndex, 'num':page_num, 'pNext':pNext, 'pPrev':pPrev, 'search_good':search_good}
     return render(request, 'shopping/search.html', context)
+
 
 
 def list(request, kind, name, attr, pIndex):
