@@ -35,3 +35,4 @@ class OrderDetailInfo(models.Model):
     count = models.DecimalField(max_digits=5,decimal_places=2)
     class Meta:
         db_table = 'OrderDetailInfo'
+
