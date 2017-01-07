@@ -1,8 +1,10 @@
+#coding=utf-8
 from django.shortcuts import render
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse,JsonResponse,Http404
 from django.core.paginator import Paginator
 from models import *
 import random
+from django.contrib import auth
 
 
 def index(request):
@@ -56,4 +58,16 @@ def list(request, kind, name, attr, pIndex):
     context = {'goods': goods_now, 'name':name, 'newgoods':newgoods[-2:], 'kind':kind, 'attr':attr, 'pIndex':pIndex, 'num':page_num, 'pNext':pNext, 'pPrev':pPrev}
     return render(request, 'shopping/list.html', context)
 
+#详情页
+def detail(request):
+    goods_info = GoodsInfo.objects.get(pk=1)
+    context = {'goods_info':goods_info}
+    return render(request,'shopping/detail.html',context)
 
+def buy_now(request):
+    if request.user.is_authenticated():
+        user = request.user
+        context ={'user':user}
+        return render(request,'shopping/buy_now.html',context)
+    else:
+        return render(request,'shopping/login.html')
