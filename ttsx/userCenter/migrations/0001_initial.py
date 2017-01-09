@@ -10,6 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('shopping', '0001_initial'),
+
     ]
 
     operations = [
@@ -61,6 +62,7 @@ class Migration(migrations.Migration):
                 ('total', models.DecimalField(max_digits=5, decimal_places=2)),
                 ('ordernum', models.CharField(max_length=20)),
                 ('bpub_date', models.DateTimeField()),
+
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={

@@ -8,42 +8,24 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="{%static 'css/reset.css'%}">
 	<link rel="stylesheet" type="text/css" href="{%static 'css/main.css'%}">
-	<script type="text/javascript" src="{%static 'jss/jquery-1.12.4.min.js'%}"></script>
-	<script type="text/javascript" src="{%static 'jss/jquery-ui.min.js'%}"></script>
-	<script type="text/javascript" src="{%static 'jss/slide.js'%}"></script>
-{#    <script type="text/javascript">#}
-{#        $(function () {#}
-{#            $('#search_text').keyup(function(){#}
-{#                $.get({% url 'shopping:search' %},function(dic){#}
-{#                    search_result = $('#search_result')#}
-{#                    $.each(dic.results, function (index, item) {#}
-{#                        search_result.append(item)#}
-{#                    })#}
-{#                })#}
-{#            })#}
-{#            $('#search_text').keydown(function(){#}
-{#                $('#search_result').empty();#}
-{#            })#}
-{#            $('#search_text').blur(function(){#}
-{#                $('#search_result').empty();#}
-{#            })#}
-{#        })#}
-{#    </script>#}
+	<script type="text/javascript" src="{%static 'js/jquery-1.12.4.min.js'%}"></script>
+	<script type="text/javascript" src="{%static 'js/jquery-ui.min.js'%}"></script>
+	<script type="text/javascript" src="{%static 'js/slide.js'%}"></script>
 {% endblock %}
 
 {% block content %}
 	<div class="search_bar clearfix">
 		<a href="index.html" class="logo fl"><img src="{% static 'images/logo.png' %}"></a>
 		<div class="search_con fl">
-            <form action="{% url 'shopping:search' 'id' 1%}" method="post">
+            <form action="{% url 'shopping:search' 'id' 1%}" method="get">
 			<input type="text" class="input_text fl" name="search_good" id="search_text" placeholder="搜索商品">
 			<input type="submit" class="input_btn fr" id="search_button" value="搜索">
             <p><span id='search_result'></span></p>
             </form>
 		</div>
 		<div class="guest_cart fr">
-			<a href="#" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl" id="show_count">1</div>
+			<a href="{% url 'userCenter:cart' %}" class="cart_name fl">我的购物车</a>
+			<div class="goods_count fl" id="show_count">{{ count }}</div>
 		</div>
 	</div>
 

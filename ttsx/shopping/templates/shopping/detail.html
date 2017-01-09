@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% block title%}天天生鲜-商品详情{% endblock title %}
+{% block head %}
+<script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+<script type="text/javascript">
+    $(function () {
+		add = $(".add")
+		minus = $(".minus")
+		num_txt = $(".num_show")
+		total = $(".total_")
+		show_pirze = $(".show_pirze_")
+		buy_btn = $(".buy_btn")
+		add.click(function () {
+			//加一
+			num = num_txt.val()
+			num++
+			num_txt.val(num)
+			//显示总价
+			total_price = num * show_pirze.text()
+			total.text(total_price.toFixed(2))
+		})
+		minus.click(function () {
+			if (num > 1) {
+				num = num_txt.val()
+				num--
+				num_txt.val(num)
+
+				total_price = num * show_pirze.text()
+				total.text(total_price.toFixed(2))
+			}
+		});
+		buy_btn.click(function () {
+			var num = num_txt.val()
+			buy_btn.attr('href', '/shopping/order/place_order/?goods_id={{ id }}&goods_count=' + num)
+		});
+
+		/*$('.add').click(function () {
+            var t=$(this).prev();
+            t.val(parseInt(t.val())+1);
+            var price=$('.show_pirze em').text();
+            var count=t.val();
+            var total=(price*count).toFixed(2)+'元';
+            $('.total em').text(total);
+        });
+
+         $('.minus').click(function () {
+            var t=$(this).prev().prev();
+            t.val(parseInt(t.val())-1);
+            if(parseInt(t.val())<1){
+                t.val(1);
+            }
+            var price=$('.show_pirze em').text();
+            var count=t.val();
+            if(count==1){
+                total=price+'元';
+            }else if(count==2){
+                total=(price*count).toFixed(2)+'元';
+            }else{
+                total=(price*count).toFixed(2)+'元';
+            }
+            $('.total em').text(total);
+
+        });*/
+
+    	});
+
+</script>
+{% endblock head %}
+{% block content %}
+	<div class="search_bar clearfix">
+		<a href="/shopping/index" class="logo fl"><img src="/data/images/goods/logo.png"></a>
+		<div class="search_con fl">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+			<input type="button" class="input_btn fr" name="" value="搜索">
+		</div>
+		<div class="guest_cart fr">
+			<a href="/shopping/cart" class="cart_name fl">我的购物车</a>
+			<div class="goods_count fl" id="show_count">1</div>
+		</div>
+	</div>
+
+	<div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>全部商品分类</h1>
+				<span></span>
+				<ul class="subnav">
+					<li><a href="{% url 'shopping:list' 'fruit' '新鲜水果' 'id' 1%}" class="fruit">新鲜水果</a></li>
+					<li><a href="{% url 'shopping:list' 'seafood' '海鲜水产' 'id' 1%}" class="seafood">海鲜水产</a></li>
+					<li><a href="{% url 'shopping:list' 'meat' '猪牛羊肉' 'id' 1%}" class="meet">猪牛羊肉</a></li>
+					<li><a href="{% url 'shopping:list' 'egg' '禽类蛋品' 'id' 1%}" class="egg">禽类蛋品</a></li>
+					<li><a href="{% url 'shopping:list' 'vegetables' '新鲜蔬菜' 'id' 1%}" class="vegetables">新鲜蔬菜</a></li>
+					<li><a href="{% url 'shopping:list' 'ice' '速冻食品' 'id' 1%}" class="ice">速冻食品</a></li>
+				</ul>
+			</div>
+			<ul class="navlist fl">
+				<li><a href="{% url 'shopping:index' %}">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="breadcrumb">
+		<a href="/index/">全部分类</a>
+		<span>></span>
+		<a href="/shopping/list/">{{goods_detail.type}}</a>
+		<span>></span>
+		<a href="#">商品详情</a>
+	</div>
+
+	<div class="goods_detail_con clearfix">
+		<div class="goods_detail_pic fl"><img src="/data/images/goods/goods_detail.jpg"></div>
+
+		<div class="goods_detail_list fr">
+			<h3>{{ goods_detail.info }}</h3>
+			<p>肉质细密，硬度大，果汁多，味香，含糖高，酸甜适度，耐储运</p>
+			<div class="prize_bar">
+				<span class="show_pirze">¥<em class="show_pirze_">{{ goods_detail.price }}</em></span>
+				<span class="show_unit">单  位：{{ goods_detail.unit }}</span>
+			</div>
+			<div class="goods_num clearfix">
+				<div class="num_name fl">数 量：</div>
+				<div class="num_add fl">
+					<input type="text" class="num_show fl" value="1">
+					<a href="javascript:;" class="add fr">+</a>
+					<a href="javascript:;" class="minus fr">-</a>
+				</div>
+			</div>
+			<div class="total">总价：<em class="total_">{{ goods_detail.price }}元</em></div>
+			<div class="operate_btn">
+				<a href="/shopping/order/place_order/?goods_id={{ goods_detail.id }}&goods_count={{goods_detail.count}}" class="buy_btn">立即购买</a>
+				<a href="add_chart" class="add_cart" id="add_cart">加入购物车</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="main_wrap clearfix">
+		<div class="l_wrap fl clearfix">
+			<div class="new_goods">
+				<h3>新品推荐</h3>
+				<ul>
+					<li>
+						<a href="#"><img src="/data/images/goods/goods001.jpg"></a>
+						<h4><a href="#">进口柠檬</a></h4>
+						<div class="prize">￥3.90</div>
+					</li>
+					<li>
+						<a href="#"><img src="/data/images/goods/goods002.jpg"></a>
+						<h4><a href="#">玫瑰香葡萄</a></h4>
+						<div class="prize">￥16.80</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="r_wrap fr clearfix">
+			<ul class="detail_tab clearfix">
+				<li class="active">商品介绍</li>
+				<li>评论</li>
+			</ul>
+
+			<div class="tab_content">
+				<dl>
+					<dt>商品详情：</dt>
+					<dd>红富士果型为扁形和桩型。果面光滑、蜡质多、果粉少、干净无果锈。果皮底色黄绿，果面条红或片红，果肉黄白色，肉质细密，硬度大，果汁多，味香，含糖高，酸甜适度，耐储运。红富士是从普通富士的芽（枝）变中选育出的着色系富的统称。富士苹果是日本农林水产省果树试验场盛冈分场于1939年以国光为母本，元帅为父本进行杂交，历经20余年，选育出的苹果优良品种，具有晚熟、质优、味美、耐贮等优点，于1962年正式命名，是世界上著名的晚熟苹果品种。富士果实虽有风味好、晚熟、耐贮等优点，但也存在着果实着色差的缺点。为此，日本各地又从富士当中选出了许多着色好的富士芽变，统称为红富士</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+{% endblock content %}
+

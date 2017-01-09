@@ -2,6 +2,8 @@ $(function () {
         var error_name = false;
 	    var error_password = false;
 function check_user_name(){
+
+	    $('.form_input>.user_error').hide()
 		var len = $('.name_input').val().length;
 		if(len<5||len>20)
 		{
