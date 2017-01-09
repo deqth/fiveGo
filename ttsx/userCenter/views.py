@@ -6,6 +6,7 @@ from  models import *
 from shopping.models import *
 from django import forms
 from django.contrib import auth
+from django.core.paginator import *
 
 
 
@@ -72,14 +73,14 @@ def logout_view(request):
 #用户信息
 def userCenterInfo(request):
     #判断用户是否登陆
-    puser = User.objects.get(pk=2)
+    puser = User.objects.get(pk=1)
     addr = address_info.objects.get(user=puser.pk)
     context = {'user':puser,'addr':addr}
     return  render(request,'userCenter/user_center_info.html',context)
 
 #用户地址
 def userCenterSite(request):
-    puser = User.objects.get(pk=2)
+    puser = User.objects.get(pk=1)
     addr = address_info.objects.get(user=puser.pk)
     context = {'user': puser, 'addr': addr}
     return  render(request,'userCenter/user_center_site.html',context)
@@ -88,16 +89,20 @@ def userCenterSite(request):
 #用户全部订单
 def userCenterOrder(request):
     #根据登陆用户id查处他的订单
-    orders = OrderInfo.objects.filter(user=2)
+    orders = OrderInfo.objects.filter(user=1)
     #print (orders.total)
     #根据订单号查询订单详情
-    orderdet = OrderDetailInfo.objects.filter(order=1)
+    orderdet = OrderDetailInfo.objects.filter(order__id__in=[1,2,3,4])
+    print(len(orderdet))
    # print (orderdet.ordernum)
     #根据订单详情查出对应商品
-    goods = OrderDetailInfo.objects.filter(goods__id__in=[0,1,2,3])
+    goods = OrderDetailInfo.objects.filter(goods__id__in=[0,1,2,3,4])
     # print(goods.goods.title)
     context = {'orders':orders,'orderdet':orderdet,'goods':goods}
     return  render(request,'userCenter/user_center_order.html',context)
+
+
+
 
 #修改地址数据
 def updatehandler(request):

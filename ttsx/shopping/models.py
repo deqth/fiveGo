@@ -14,3 +14,7 @@ class GoodsInfo(models.Model):
     cliNum = models.IntegerField() #点击量
     class Meta():
         db_table = 'goods'
+    #后台admin站点添加数据显示名字而不是对象
+    def __str__(self):
+        #__unicode__
+        return self.title.encode('utf-8')
