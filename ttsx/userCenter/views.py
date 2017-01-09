@@ -9,7 +9,7 @@ from shopping.models import *
 from django import forms
 from django.contrib import auth
 from django.core.paginator import *
-
+from django.contrib.auth.decorators import login_required
 def login_register_split(request,get,post):
     if request.method == 'GET':
         return get(request)
@@ -22,7 +22,7 @@ def login_register_split(request,get,post):
 def register(request):
     return render(request,'userCenter/register.html')
 
-
+@login_required()
 def cart(request):
     cartAll = userCenter.models.cart.objects.all()
     context = {'cartAll':cartAll}
@@ -58,19 +58,26 @@ def createUser(request):
             #用户名已经存在抛异常
             user = User.objects.create_user(username=info['name'],password=info['pwd'],email=info['email'])
             user.save()
+            #用户注册后自登陆
+            user = auth.authenticate(username=info['name'], password=info['pwd'])
+            auth.login(request, user)
         except Exception,e:
             pass
         else:
             isCreate = True
+
     return JsonResponse({'register':isCreate})
+
 
 #登陆页面
 def login(request):
+    # print request.META['HTTP_REFERER']
     return  render(request,'userCenter/login.html')
 
 #用户登陆
 from django.contrib.auth.models import User
 def toLogin(request):
+    come = request.GET.get('next',None)
     username = request.POST.get('username', '')
     pwd = request.POST.get('pwd', '')
     user = auth.authenticate(username=username, password=pwd)
@@ -78,14 +85,14 @@ def toLogin(request):
     if user is not None and user.is_active:
         auth.login(request,user)
         isLogin = True
-    return  JsonResponse({'login':isLogin})
+    return  JsonResponse({'login':isLogin,'come':come})
 #退出登陆
 def logout_view(request):
     auth.logout(request)
 # 可以根据需求跳转到特定页面
-    return HttpResponseRedirect("/userCenter/login/")
-
+    return HttpResponseRedirect("/shopping/index")
 #用户信息
+@login_required()
 def userCenterInfo(request):
     #判断用户是否登陆
     puser = User.objects.get(pk=1)
@@ -102,6 +109,7 @@ def userCenterSite(request):
 
 
 #用户全部订单
+@login_required()
 def userCenterOrder(request):
     #根据登陆用户id查处他的订单
     orders = OrderInfo.objects.filter(user=1)
@@ -115,9 +123,6 @@ def userCenterOrder(request):
     # print(goods.goods.title)
     context = {'orders':orders,'orderdet':orderdet,'goods':goods}
     return  render(request,'userCenter/user_center_order.html',context)
-
-
-
 
 #修改地址数据
 def updatehandler(request):
@@ -145,7 +150,7 @@ def updatehandler(request):
 #         user = request.user
 #         return HttpResponse(user.password)
 #     raise Http404
-
+#
 # from django.contrib.auth.decorators import login_required
 # @login_required()
 # def test_login(request):

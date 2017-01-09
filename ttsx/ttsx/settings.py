@@ -126,6 +126,3 @@ LOGIN_URL = '/userCenter/login/'
 # SESSION_REDIS_DB = 0
 # SESSION_REDIS_PASSWORD = ''
 # SESSION_REDIS_PREFIX = 'session'
-
-
-
