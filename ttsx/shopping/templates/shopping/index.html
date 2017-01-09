@@ -4,12 +4,7 @@
 天天生鲜-首页
 {% endblock %}
 
-{% block head %}
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="{%static 'css/reset.css'%}">
-	<link rel="stylesheet" type="text/css" href="{%static 'css/main.css'%}">
-	<script type="text/javascript" src="{%static 'js/jquery-1.12.4.min.js'%}"></script>
-	<script type="text/javascript" src="{%static 'js/jquery-ui.min.js'%}"></script>
+{% block custom_js %}
 	<script type="text/javascript" src="{%static 'js/slide.js'%}"></script>
 {% endblock %}
 
@@ -224,21 +219,21 @@
 		</div>
 	</div>
 {% endblock %}
-
-    <!--<script type="text/javascript" src="js/slideshow.js"></script>-->
-	<script type="text/javascript">
-		BCSlideshow('focuspic');
-		var oFruit = document.getElementById('fruit_more');
-		var oShownum = document.getElementById('show_count');
-
-		var hasorder = localStorage.getItem('order_finish');
-
-		if(hasorder)
-		{
-			oShownum.innerHTML = '2';
-		}
-
-		oFruit.onclick = function(){
-			window.location.href = 'list.html';
-		}
-	</script>
+{##}
+{#    <!--<script type="text/javascript" src="js/slideshow.js"></script>-->#}
+{#	<script type="text/javascript">#}
+{#		BCSlideshow('focuspic');#}
+{#		var oFruit = document.getElementById('fruit_more');#}
+{#		var oShownum = document.getElementById('show_count');#}
+{##}
+{#		var hasorder = localStorage.getItem('order_finish');#}
+{##}
+{#		if(hasorder)#}
+{#		{#}
+{#			oShownum.innerHTML = '2';#}
+{#		}#}
+{##}
+{#		oFruit.onclick = function(){#}
+{#			window.location.href = 'list.html';#}
+{#		}#}
+{#	</script>#}

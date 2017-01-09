@@ -1,7 +1,6 @@
 #coding=utf-8
 from django.db import models
 
-
 class GoodsInfo(models.Model):
     title = models.CharField(max_length=20)    #商品名字
     type = models.CharField(max_length=20)     #商品类型
@@ -11,6 +10,10 @@ class GoodsInfo(models.Model):
     info = models.CharField(max_length=200)   #商品简介
     info_detail = models.CharField(max_length=3000) #商品详情
     bigImg = models.ImageField()#商品图片
-    cliNum = models.IntegerField() #点击量
+    cliNum = models.IntegerField()#点击量
     class Meta():
         db_table = 'goods'
+    #后台admin站点添加数据显示名字而不是对象
+    def __str__(self):
+        #__unicode__
+        return self.title.encode('utf-8')

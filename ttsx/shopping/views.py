@@ -1,12 +1,13 @@
 #coding=utf-8
 from django.shortcuts import render
-from django.http import HttpResponse,JsonResponse,Http404
+from django.http import HttpResponse,JsonResponse,Http404,HttpResponseRedirect
 from django.core.paginator import Paginator
 from models import *
 from userCenter.models import *
 from django.contrib.auth.models import User
 import random
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -93,3 +94,21 @@ def detail(request, type, goods_id):
     goods = GoodsInfo.objects.get(id=goods_id)
     context = {'type':type, 'goods':goods, 'newgoods':newgoods[-2:], 'count':count}
     return render(request, 'shopping/detail.html', context)
+
+
+@login_required()
+def buy_now(request):
+    goods_id = request.GET["goods_id"]
+    goods_count = request.GET["goods_count"]
+    print(goods_id)
+    id=int(goods_id)
+    user = request.user
+    goods_order=GoodsInfo.objects.get(pk=id)
+    money=goods_order.price*goods_count
+    context ={'user':user,'goods_order':goods_order,
+              'money':money
+              }
+    return render(request,'shopping/place_order.html',context)
+
+
+

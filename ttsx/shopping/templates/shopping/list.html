@@ -95,6 +95,8 @@
 			<ul class="goods_type_list clearfix">
 				{%for temp in goods%}
 				<li>
+					<a href="/shopping/detail/{{temp.id}}"><img src="{{temp.smallImg}}"></a>
+					<h4><a href="/shopping/detail/{{temp.id}}">{{temp.info}}</a></h4>
                     <p id="goodsid" hidden>{{ temp.id }}</p>
 					<a href="{% url 'shopping:detail' temp.type temp.id%}"><img src="{{temp.smallImg}}"></a>
 					<h4><a href="{% url 'shopping:detail' temp.type temp.id%}">{{temp.info}}</a></h4>

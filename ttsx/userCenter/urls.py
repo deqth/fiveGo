@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^cartdel$', views.cartdel, name='cartdel'),
     url(r'^cartchange$', views.cartchange, name='cartchange'),
     url(r'^login/$', views.login_register_split, {'get': views.login, 'post': views.toLogin}, name='login'),
+    url(r'^logout/$', views.logout_view),
     url(r'^register/$', views.login_register_split, {'get': views.register, 'post': views.createUser}, name='register'),
     url(r'^user_center_info/$', views.userCenterInfo),
     url(r'^user_center_site/$', views.userCenterSite),
