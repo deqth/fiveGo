@@ -142,9 +142,6 @@ def updatehandler(request):
 
     return redirect('/user_center_site')
 
-
-
-
 # def test(request):
 #     if  request.user.is_authenticated():
 #         user = request.user
