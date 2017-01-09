@@ -14,7 +14,10 @@
         $(function () {
             $(".add_goods").click(function () {
                 goodsid = $(this).parent().siblings("#goodsid").text()
-                $.get("{% url 'shopping:addgoods' %}", {'goodsid':goodsid})
+                goodsnum = 1
+                $.post("",{'goodsid':goodsid, 'goodsnum':goodsnum},function(dic){
+					$(".goods_count").text(dic.count)
+				})
             })
         })
     </script>
@@ -59,8 +62,8 @@
 				<ul>
                     {%for temp in newgoods %}
 					<li>
-						<a href="#"><img src="{{temp.smallImg}}"></a>
-						<h4><a href="#">{{temp.info}}</a></h4>
+						<a href="{% url 'shopping:detail' temp.type temp.id%}"><img src="{{temp.smallImg}}"></a>
+						<h4><a href="{% url 'shopping:detail' temp.type temp.id%}">{{temp.info}}</a></h4>
 						<div class="prize">￥{{ temp.price }}</div>
 					</li>
 					{% endfor %}
@@ -72,8 +75,8 @@
 				{%for temp in results%}
 				<li>
                     <p id="goodsid" hidden>{{ temp.id }}</p>
-					<a href="detail.html"><img src="{{temp.smallImg}}"></a>
-					<h4><a href="detail.html">{{temp.info}}</a></h4>
+					<a href="{% url 'shopping:detail' temp.type temp.id%}"><img src="{{temp.smallImg}}"></a>
+					<h4><a href="{% url 'shopping:detail' temp.type temp.id%}">{{temp.info}}</a></h4>
 					<div class="operate">
 						<span class="prize">￥{{temp.price}}</span>
 						<span class="unit">{{temp.price}}/{{temp.unit}}</span>
