@@ -5,8 +5,38 @@
 <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
 <link rel="stylesheet" type="text/css" href="/static/css/main.css">
 <script type="text/javascript">
-    $(function (){
-        $('.add').click(function () {
+    $(function () {
+		add = $(".add")
+		minus = $(".minus")
+		num_txt = $(".num_show")
+		total = $(".total_")
+		show_pirze = $(".show_pirze_")
+		buy_btn = $(".buy_btn")
+		add.click(function () {
+			//加一
+			num = num_txt.val()
+			num++
+			num_txt.val(num)
+			//显示总价
+			total_price = num * show_pirze.text()
+			total.text(total_price.toFixed(2))
+		})
+		minus.click(function () {
+			if (num > 1) {
+				num = num_txt.val()
+				num--
+				num_txt.val(num)
+
+				total_price = num * show_pirze.text()
+				total.text(total_price.toFixed(2))
+			}
+		});
+		buy_btn.click(function () {
+			var num = num_txt.val()
+			buy_btn.attr('href', '/shopping/order/place_order/?goods_id={{ id }}&goods_count=' + num)
+		});
+
+		/*$('.add').click(function () {
             var t=$(this).prev();
             t.val(parseInt(t.val())+1);
             var price=$('.show_pirze em').text();
@@ -32,38 +62,21 @@
             }
             $('.total em').text(total);
 
-        });
+        });*/
 
-        var $add_x = $('#add_cart').offset().top;
-		var $add_y = $('#add_cart').offset().left;
+    	});
 
-		var $to_x = $('#show_count').offset().top;
-		var $to_y = $('#show_count').offset().left;
-
-		$(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'});
-		$('#add_cart').click(function(){
-			$(".add_jump").stop().animate({
-				'left': $to_y+8,
-				'top': $to_x+8},
-				"fast", function() {
-					$(".add_jump").fadeOut('slow',function(){
-						$('#show_count').html(2);
-					});
-            });
-
-		});
-    });
 </script>
 {% endblock head %}
 {% block content %}
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="/data/images/logo.png"></a>
+		<a href="/shopping/index" class="logo fl"><img src="/data/images/goods/logo.png"></a>
 		<div class="search_con fl">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
 			<input type="button" class="input_btn fr" name="" value="搜索">
 		</div>
 		<div class="guest_cart fr">
-			<a href="cart.html" class="cart_name fl">我的购物车</a>
+			<a href="/shopping/cart" class="cart_name fl">我的购物车</a>
 			<div class="goods_count fl" id="show_count">1</div>
 		</div>
 	</div>
@@ -74,7 +87,7 @@
 				<h1>全部商品分类</h1>
 				<span></span>
 				<ul class="subnav">
-				<li><a href="{% url 'shopping:list' 'fruit' '新鲜水果' 'id' 1%}" class="fruit">新鲜水果</a></li>
+					<li><a href="{% url 'shopping:list' 'fruit' '新鲜水果' 'id' 1%}" class="fruit">新鲜水果</a></li>
 					<li><a href="{% url 'shopping:list' 'seafood' '海鲜水产' 'id' 1%}" class="seafood">海鲜水产</a></li>
 					<li><a href="{% url 'shopping:list' 'meat' '猪牛羊肉' 'id' 1%}" class="meet">猪牛羊肉</a></li>
 					<li><a href="{% url 'shopping:list' 'egg' '禽类蛋品' 'id' 1%}" class="egg">禽类蛋品</a></li>
@@ -93,22 +106,22 @@
 	</div>
 
 	<div class="breadcrumb">
-		<a href="#">全部分类</a>
+		<a href="/index/">全部分类</a>
 		<span>></span>
-		<a href="#">新鲜水果</a>
+		<a href="/shopping/list/">{{goods_detail.type}}</a>
 		<span>></span>
 		<a href="#">商品详情</a>
 	</div>
 
 	<div class="goods_detail_con clearfix">
-		<div class="goods_detail_pic fl"><img src="/data/images/goods_detail.jpg"></div>
+		<div class="goods_detail_pic fl"><img src="/data/images/goods/goods_detail.jpg"></div>
 
 		<div class="goods_detail_list fr">
-			<h3>{{ goods_info.title }}</h3>
-			<p>{{ goods_info.info}}</p>
+			<h3>{{ goods_detail.info }}</h3>
+			<p>肉质细密，硬度大，果汁多，味香，含糖高，酸甜适度，耐储运</p>
 			<div class="prize_bar">
-				<span class="show_pirze">¥<em>{{ goods_info.price }}</em></span>
-				<span class="show_unit">单  位：{{ goods_info.unit }}</span>
+				<span class="show_pirze">¥<em class="show_pirze_">{{ goods_detail.price }}</em></span>
+				<span class="show_unit">单  位：{{ goods_detail.unit }}</span>
 			</div>
 			<div class="goods_num clearfix">
 				<div class="num_name fl">数 量：</div>
@@ -118,10 +131,10 @@
 					<a href="javascript:;" class="minus fr">-</a>
 				</div>
 			</div>
-			<div class="total">总价：<em>{{ goods_info.price }}元</em></div>
+			<div class="total">总价：<em class="total_">{{ goods_detail.price }}元</em></div>
 			<div class="operate_btn">
-				<a href="javascript:;" class="buy_btn">立即购买</a>
-				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>
+				<a href="/shopping/order/place_order/?goods_id={{ goods_detail.id }}&goods_count={{goods_detail.count}}" class="buy_btn">立即购买</a>
+				<a href="add_chart" class="add_cart" id="add_cart">加入购物车</a>
 			</div>
 		</div>
 	</div>
@@ -154,13 +167,11 @@
 			<div class="tab_content">
 				<dl>
 					<dt>商品详情：</dt>
-					<dd>{{ goods_info.info_detail }}</dd>
+					<dd>红富士果型为扁形和桩型。果面光滑、蜡质多、果粉少、干净无果锈。果皮底色黄绿，果面条红或片红，果肉黄白色，肉质细密，硬度大，果汁多，味香，含糖高，酸甜适度，耐储运。红富士是从普通富士的芽（枝）变中选育出的着色系富的统称。富士苹果是日本农林水产省果树试验场盛冈分场于1939年以国光为母本，元帅为父本进行杂交，历经20余年，选育出的苹果优良品种，具有晚熟、质优、味美、耐贮等优点，于1962年正式命名，是世界上著名的晚熟苹果品种。富士果实虽有风味好、晚熟、耐贮等优点，但也存在着果实着色差的缺点。为此，日本各地又从富士当中选出了许多着色好的富士芽变，统称为红富士</dd>
 				</dl>
 			</div>
 
 		</div>
 	</div>
-    <div class="add_jump"></div>
-
 {% endblock content %}
 

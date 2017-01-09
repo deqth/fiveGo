@@ -1,16 +1,11 @@
 #coding=utf-8
 from django.shortcuts import render,redirect
-from django.http import HttpResponse,Http404,HttpResponseRedirect
+from django.http import HttpResponse,Http404,HttpResponseRedirect,JsonResponse
 from django.contrib.auth.models import User
 from  models import *
 from shopping.models import *
 from django import forms
 from django.contrib import auth
-
-
-
-
-
 
 def login_register_split(request,get,post):
     if request.method == 'GET':

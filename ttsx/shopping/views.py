@@ -1,6 +1,6 @@
 #coding=utf-8
 from django.shortcuts import render
-from django.http import HttpResponse,JsonResponse,Http404
+from django.http import HttpResponse,JsonResponse,Http404,HttpResponseRedirect
 from django.core.paginator import Paginator
 from models import *
 import random
@@ -59,15 +59,30 @@ def list(request, kind, name, attr, pIndex):
     return render(request, 'shopping/list.html', context)
 
 #详情页
-def detail(request):
-    goods_info = GoodsInfo.objects.get(pk=1)
-    context = {'goods_info':goods_info}
+def detail(request,id):
+    id=int(id)
+    goods_detail = GoodsInfo.objects.get(pk=id)
+    context = {'goods_detail':goods_detail}
     return render(request,'shopping/detail.html',context)
 
 def buy_now(request):
     if request.user.is_authenticated():
+        goods_id = request.GET["goods_id"]
+        goods_count = request.GET["goods_count"]
+        print(goods_id)
+        id=int(goods_id)
         user = request.user
-        context ={'user':user}
-        return render(request,'shopping/buy_now.html',context)
+        goods_order=GoodsInfo.objects.get(pk=id)
+        money=goods_order.price*goods_count
+        context ={'user':user,'goods_order':goods_order,
+                  'money':money
+                  }
+        return render(request,'shopping/place_order.html',context)
     else:
-        return render(request,'shopping/login.html')
+        return HttpResponseRedirect('/userCenter/login')
+
+def add_chart(request):
+
+
+    return HttpResponse('hello')
+
