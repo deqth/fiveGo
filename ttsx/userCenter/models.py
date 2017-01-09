@@ -1,7 +1,9 @@
 #coding=utf-8
-# from django.db import models
+from django.db import models
 from shopping.models import *
 from django.contrib.auth.models import User
+
+
 
 class cart(models.Model):
     num = models.IntegerField()
@@ -35,3 +37,4 @@ class OrderDetailInfo(models.Model):
     count = models.DecimalField(max_digits=5,decimal_places=2)
     class Meta:
         db_table = 'OrderDetailInfo'
+

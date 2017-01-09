@@ -1,8 +1,10 @@
 #coding=utf-8
+from django import forms
+import userCenter
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404,HttpResponseRedirect,JsonResponse
 from django.contrib.auth.models import User
-from  models import *
+from models import *
 from shopping.models import *
 from django import forms
 from django.contrib import auth
@@ -21,7 +23,25 @@ def register(request):
 
 
 def cart(request):
-    return render(request,'userCenter/cart.html')
+    cartAll = userCenter.models.cart.objects.all()
+    context = {'cartAll':cartAll}
+    return render(request,'userCenter/cart.html', context)
+
+
+def cartdel(request):
+    cart_good_id = request.GET.get('cart_good_id')
+    userCenter.models.cart.objects.get(pk = cart_good_id).delete()
+    return HttpResponse('ok')
+
+
+def cartchange(request):
+    num = request.GET.get('num')
+    cart_good_id = request.GET.get('cart_good_id')
+    good = userCenter.models.cart.objects.get(pk=cart_good_id)
+    good.num = num
+    good.save()
+    return HttpResponse('ok')
+
 #验证提交信息的正确性
 class ttsxUser(forms.Form):
     name = forms.CharField(max_length=20,min_length=3)
@@ -120,3 +140,10 @@ def updatehandler(request):
 #         user = request.user
 #         return HttpResponse(user.password)
 #     raise Http404
+
+# from django.contrib.auth.decorators import login_required
+# @login_required()
+# def test_login(request):
+#     '''利用装饰器判断登陆，如果没有登陆直接跳转至登陆页面，如果登陆成功会跳转至相应的页面'''
+#     return HttpResponse('xxx')
+
