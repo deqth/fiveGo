@@ -1,8 +1,10 @@
 #coding=utf-8
 from django.shortcuts import render
-from django.http import Http404,JsonResponse
+from django.http import Http404,JsonResponse,HttpResponse
 from django.contrib import auth
 from django import forms
+import userCenter
+from shopping.models import *
 
 def login_register_split(request,get,post):
     if request.method == 'GET':
@@ -17,7 +19,25 @@ def register(request):
 
 
 def cart(request):
-    return render(request,'userCenter/cart.html')
+    cartAll = userCenter.models.cart.objects.all()
+    context = {'cartAll':cartAll}
+    return render(request,'userCenter/cart.html', context)
+
+
+def cartdel(request):
+    cart_good_id = request.GET.get('cart_good_id')
+    userCenter.models.cart.objects.get(pk = cart_good_id).delete()
+    return HttpResponse('ok')
+
+
+def cartchange(request):
+    num = request.GET.get('num')
+    cart_good_id = request.GET.get('cart_good_id')
+    good = userCenter.models.cart.objects.get(pk=cart_good_id)
+    good.num = num
+    good.save()
+    return HttpResponse('ok')
+
 #验证提交信息的正确性
 class ttsxUser(forms.Form):
     name = forms.CharField(max_length=20,min_length=3)

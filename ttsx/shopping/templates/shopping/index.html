@@ -11,24 +11,6 @@
 	<script type="text/javascript" src="{%static 'jss/jquery-1.12.4.min.js'%}"></script>
 	<script type="text/javascript" src="{%static 'jss/jquery-ui.min.js'%}"></script>
 	<script type="text/javascript" src="{%static 'jss/slide.js'%}"></script>
-{#    <script type="text/javascript">#}
-{#        $(function () {#}
-{#            $('#search_text').keyup(function(){#}
-{#                $.get({% url 'shopping:search' %},function(dic){#}
-{#                    search_result = $('#search_result')#}
-{#                    $.each(dic.results, function (index, item) {#}
-{#                        search_result.append(item)#}
-{#                    })#}
-{#                })#}
-{#            })#}
-{#            $('#search_text').keydown(function(){#}
-{#                $('#search_result').empty();#}
-{#            })#}
-{#            $('#search_text').blur(function(){#}
-{#                $('#search_result').empty();#}
-{#            })#}
-{#        })#}
-{#    </script>#}
 {% endblock %}
 
 {% block content %}
@@ -42,7 +24,7 @@
             </form>
 		</div>
 		<div class="guest_cart fr">
-			<a href="#" class="cart_name fl">我的购物车</a>
+			<a href="{% url 'userCenter:cart' %}" class="cart_name fl">我的购物车</a>
 			<div class="goods_count fl" id="show_count">1</div>
 		</div>
 	</div>

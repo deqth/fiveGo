@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from django.core.paginator import Paginator
 from models import *
+from userCenter.models import *
+from django.contrib.auth.models import User
 import random
 
 
@@ -14,6 +16,24 @@ def index(request):
     ice = GoodsInfo.objects.all().filter(type='ice')
     context = {'fruit':fruit[0:4], 'fruit1':fruit[5:8], 'seafood':seafood[0:4], 'seafood1':seafood[5:8], 'meat':meat[0:4], 'meat1':meat[5:8], 'egg':egg[0:4], 'egg1':egg[5:8], 'vegetables':vegetables[0:4], 'vegetables1':vegetables[5:8], 'ice':ice[0:4], 'ice1':ice[0:4]}
     return render(request, 'shopping/index.html', context)
+
+
+def list(request, kind, name, attr, pIndex):
+    goods = GoodsInfo.objects.all().filter(type=kind)
+    goods_order = goods.order_by(attr)
+    newgoods = [temp for temp in goods]
+    p = Paginator(goods_order, 10)
+    pIndex = int(pIndex)
+    goods_now = p.page(pIndex)
+    page_num = p.page_range
+    pPrev = pIndex
+    pNext = pIndex
+    if goods_now.has_previous():
+        pPrev = pIndex - 1
+    if goods_now.has_next():
+        pNext = pIndex + 1
+    context = {'goods': goods_now, 'name':name, 'newgoods':newgoods[-2:], 'kind':kind, 'attr':attr, 'pIndex':pIndex, 'num':page_num, 'pNext':pNext, 'pPrev':pPrev}
+    return render(request, 'shopping/list.html', context)
 
 
 def search(request, attr, pIndex):
@@ -39,22 +59,15 @@ def search(request, attr, pIndex):
     return render(request, 'shopping/search.html', context)
 
 
-
-def list(request, kind, name, attr, pIndex):
-    goods = GoodsInfo.objects.all().filter(type=kind)
-    goods_order = goods.order_by(attr)
-    newgoods = [temp for temp in goods]
-    p = Paginator(goods_order, 10)
-    pIndex = int(pIndex)
-    goods_now = p.page(pIndex)
-    page_num = p.page_range
-    pPrev = pIndex
-    pNext = pIndex
-    if goods_now.has_previous():
-        pPrev = pIndex - 1
-    if goods_now.has_next():
-        pNext = pIndex + 1
-    context = {'goods': goods_now, 'name':name, 'newgoods':newgoods[-2:], 'kind':kind, 'attr':attr, 'pIndex':pIndex, 'num':page_num, 'pNext':pNext, 'pPrev':pPrev}
-    return render(request, 'shopping/list.html', context)
-
-
+def addgoods(request):
+    user = User.objects.get(id=1)
+    goodsid = request.GET.get('goodsid')
+    goods_info = GoodsInfo.objects.get(id=goodsid)
+    try:
+        cart_good = cart.objects.get(goods_info=goodsid)
+        num = cart_good.num
+        cart_good.num = num+1
+        cart_good.save()
+    except Exception,e:
+        cart.objects.create(num=1, user=user, goods_info=goods_info)
+    return HttpResponse('ok')
