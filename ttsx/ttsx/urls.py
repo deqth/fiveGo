@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^shopping/', include('shopping.urls', namespace='shopping')),
     url(r'^userCenter/', include('userCenter.urls', namespace='userCenter')),
     url(r'^favicon.ico$', RedirectView.as_view(url=r'static/favicon.ico')),
+    url(r'^',include('userCenter.urls'))
 ]+ static(settings.MEDIA_URL , document_root=settings.MEDIA_ROOT)

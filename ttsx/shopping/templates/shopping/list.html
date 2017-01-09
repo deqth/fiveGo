@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="{%static 'css/reset.css'%}">
 	<link rel="stylesheet" type="text/css" href="{%static 'css/main.css'%}">
-    <script type="text/javascript", src="{% static 'jss/jquery-1.12.4.min.js' %}"></script>
+    <script type="text/javascript", src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
     <script type="text/javascript">
         $(function () {
             $(".add_goods").click(function () {
@@ -32,8 +32,8 @@
             </form>
 		</div>
 		<div class="guest_cart fr">
-			<a href="#" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl">1</div>
+			<a href="{% url 'userCenter:cart' %}" class="cart_name fl">我的购物车</a>
+			<div class="goods_count fl">{{ count }}</div>
 		</div>
 	</div>
 

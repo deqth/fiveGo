@@ -19,6 +19,7 @@ class address_info(models.Model):
     address = models.CharField(max_length=50)
     user = models.ForeignKey(User)
     isDelete = models.BooleanField(default=0)
+    receiver = models.CharField(max_length=15)
     class Meta:
         db_table = 'address_info'
 class OrderInfo(models.Model):
@@ -36,3 +37,4 @@ class OrderDetailInfo(models.Model):
     count = models.DecimalField(max_digits=5,decimal_places=2)
     class Meta:
         db_table = 'OrderDetailInfo'
+

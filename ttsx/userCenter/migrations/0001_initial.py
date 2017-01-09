@@ -17,12 +17,12 @@ class Migration(migrations.Migration):
             name='address_info',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('receiver', models.CharField(max_length=15)),
                 ('tel', models.CharField(max_length=15)),
                 ('email', models.EmailField(max_length=254)),
                 ('zipcode', models.CharField(max_length=10)),
                 ('address', models.CharField(max_length=50)),
                 ('isDelete', models.BooleanField(default=0)),
+                ('receiver', models.CharField(max_length=15)),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={

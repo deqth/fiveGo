@@ -92,9 +92,9 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -116,11 +116,16 @@ STATICFILES_DIRS = (
 )
 
 
-# #默认缓存时间为13天
-# SESSION_ENGINE = 'redis_sessions.session'
-# SESSION_REDIS_HOST = 'localhost'
-# SESSION_REDIS_PORT = 6379
+LOGIN_URL = '/userCenter/login/'
+
+
+#默认缓存时间为13天
+#SESSION_ENGINE = 'redis_sessions.session'
+#SESSION_REDIS_HOST = 'localhost'
+#SESSION_REDIS_PORT = 6379
 # SESSION_REDIS_DB = 0
 # SESSION_REDIS_PASSWORD = ''
 # SESSION_REDIS_PREFIX = 'session'
+
+
 

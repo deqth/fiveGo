@@ -1,6 +1,7 @@
 #coding=utf-8
 from django.db import models
 
+
 class GoodsInfo(models.Model):
     title = models.CharField(max_length=20)    #商品名字
     type = models.CharField(max_length=20)     #商品类型
