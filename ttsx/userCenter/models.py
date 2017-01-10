@@ -9,6 +9,7 @@ class cart(models.Model):
     num = models.IntegerField()
     user = models.ForeignKey(User)
     goods_info = models.ForeignKey(GoodsInfo)
+    isselect = models.BooleanField()
     class Meta:
         db_table = 'cart'
 class address_info(models.Model):

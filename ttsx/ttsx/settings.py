@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ttsx',
         'USER': 'root',
-        'PASSWORD': 'mysql',
+        'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -126,6 +126,3 @@ LOGIN_URL = '/userCenter/login/'
 # SESSION_REDIS_DB = 0
 # SESSION_REDIS_PASSWORD = ''
 # SESSION_REDIS_PREFIX = 'session'
-
-
-

@@ -41,7 +41,7 @@ $('form').submit(function() {
 		{
 			$.post("", { username: $('.name_input').val(), pwd: $('.pass_input').val()}, function(data){
 				if(data.login){
-					window.location.href = '/userCenter/test'
+					data.come ?window.location.href = data.come:window.location.href = '/shopping/index'
 				}else {
 					 $('.form_input>.user_error').show()
 				}
