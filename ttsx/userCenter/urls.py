@@ -10,10 +10,11 @@ urlpatterns = [
     url(r'^login/$', views.login_register_split, {'get': views.login, 'post': views.toLogin}, name='login'),
     url(r'^logout/$', views.logout_view),
     url(r'^register/$', views.login_register_split, {'get': views.register, 'post': views.createUser}, name='register'),
-    url(r'^user_center_info/$', views.userCenterInfo),
-    url(r'^user_center_site/$', views.userCenterSite),
-    url(r'^user_center_order([0-9]*)/$', views.userCenterOrder),
-    url(r'^user_center_site/useraddressupdate$', views.updatehandler),
+    url(r'^userCenterInfo/$', views.userCenterInfo),
+    url(r'^userCenterSite/$', views.userCenterSite),
+    url(r'^userCenterOrder([0-9]*)/$', views.userCenterOrder),
+    url(r'^userCenterSite/userAddressUpdate$', views.updatehandler),
+
     # url(r'^test/$', views.test_login),
 ]
 

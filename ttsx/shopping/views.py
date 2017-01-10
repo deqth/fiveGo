@@ -121,6 +121,11 @@ class buy_goods:
 @login_required()
 def buy_now(request):
     user = request.user
+    userId = request.user.id
+    puser = User.objects.get(pk=userId)
+    addr = address_info.objects.filter(user=puser.pk)
+    if not addr:
+        addr = ['']
     if request.GET.get("goodsid",None):
         goodsid = request.GET["goodsid"]
         goodsnum = request.GET["goodsnum"]
@@ -135,18 +140,28 @@ def buy_now(request):
         goods_order = cart.objects.filter(isselect=1)
         goods = []
         index = 0
+        total = 0
+        ordernum = str(int(time.time() * 1000)) + str(int(time.clock() * 1000000))
         for goods_cart in goods_order:
             goods_info = goods_cart.goods_info
             goodsnum = goods_cart.num
             price = goods_info.price
             subtotal = int(goodsnum)*price
-            order = OrderInfo.objects.create(user=user, state=0, total=subtotal, ordernum=str(int(time.time()*1000))+str(int(time.clock()*1000000)), bpub_date='2000-1-1')
-            OrderDetailInfo.objects.create(order=order, goods=goods_info, goods_price=price, count=goodsnum)
+            total +=subtotal
             goods_cart.delete()
             index += 1
             good = buy_goods(goods_info, goodsnum, subtotal, index)
             goods.append(good)
-        context = {'goods':goods}
+        order = OrderInfo.objects.create(user=user, state=0, total=total, ordernum=ordernum, bpub_date='2000-1-1')
+        for goods_cart in goods_order:
+            goods_info = goods_cart.goods_info
+            goodsnum = goods_cart.num
+            price = goods_info.price
+            OrderDetailInfo.objects.create(order=order, goods=goods_info, goods_price=price, count=goodsnum)
+        context = {'goods':goods,'addr':addr[0]}
+        order.state=1
+        order.save()
+
     return render(request,'shopping/place_order.html', context)
 
 
