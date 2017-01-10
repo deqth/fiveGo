@@ -24,6 +24,7 @@ def register(request):
 
 @login_required()
 def cart(request):
+    userCenter.models.cart.objects.all().update(isselect=1)
     cartAll = userCenter.models.cart.objects.all()
     context = {'cartAll':cartAll}
     return render(request,'userCenter/cart.html', context)
@@ -42,6 +43,22 @@ def cartchange(request):
     good.num = num
     good.save()
     return HttpResponse('ok')
+
+
+def isselect(request):
+    goodsid = request.GET.get('goodsid')
+    val = request.GET.get('val')
+    good = userCenter.models.cart.objects.get(pk=goodsid)
+    good.isselect = int(val)
+    good.save()
+    return HttpResponse('ok')
+
+
+def allselect(request):
+    val = request.GET.get('val')
+    userCenter.models.cart.objects.all().update(isselect=int(val))
+    return HttpResponse('ok')
+
 
 #验证提交信息的正确性
 class ttsxUser(forms.Form):
@@ -95,52 +112,70 @@ def logout_view(request):
 @login_required()
 def userCenterInfo(request):
     #判断用户是否登陆
-    puser = User.objects.get(pk=1)
-    addr = address_info.objects.get(user=puser.pk)
-    context = {'user':puser,'addr':addr}
+    userId = request.user.id
+    puser = User.objects.get(pk=userId)
+    print (puser)
+    addr = address_info.objects.filter(user=puser.pk)
+    if not addr:
+        addr = ['']
+    recent_goods = request.session.get('recent_goods')
+    recents = []
+    for recent_good in recent_goods:
+        recent = GoodsInfo.objects.get(id=recent_good)
+        recents.append(recent)
+    context = {'user':puser,'addr':addr[0], 'recents':recents[::-1]}
     return  render(request,'userCenter/user_center_info.html',context)
 
 #用户地址
 def userCenterSite(request):
-    puser = User.objects.get(pk=1)
-    addr = address_info.objects.get(user=puser.pk)
-    context = {'user': puser, 'addr': addr}
+    userId = request.user.id
+    puser = User.objects.get(pk=userId)
+    addr = address_info.objects.filter(user=puser.pk)
+    if not addr:
+        addr=['']
+    context = {'user': puser, 'addr': addr[0]}
     return  render(request,'userCenter/user_center_site.html',context)
 
 
 #用户全部订单
+
 @login_required()
-def userCenterOrder(request):
+def userCenterOrder(request,pIndex):
+    userId=request.user.id
     #根据登陆用户id查处他的订单
-    orders = OrderInfo.objects.filter(user=1)
-    #print (orders.total)
-    #根据订单号查询订单详情
-    orderdet = OrderDetailInfo.objects.filter(order__id__in=[1,2,3,4])
-    print(len(orderdet))
-   # print (orderdet.ordernum)
-    #根据订单详情查出对应商品
-    goods = OrderDetailInfo.objects.filter(goods__id__in=[0,1,2,3,4])
-    # print(goods.goods.title)
-    context = {'orders':orders,'orderdet':orderdet,'goods':goods}
+    if request.GET.get('orderid'):
+        orderid = request.GET.get('orderid')
+        OrderInfo.objects.filter(id=orderid).update(state=1)
+    orders = OrderInfo.objects.filter(user=userId)
+    #分页
+    pgi = Paginator(orders,3)
+    if pIndex =='':
+        pIndex='1'
+    orders2 = pgi.page(int(pIndex))
+    pagelist = pgi.page_range
+    context = {'orders':orders2,'pagelist':pagelist,'pIndex':pIndex}
     return  render(request,'userCenter/user_center_order.html',context)
 
 #修改地址数据
 def updatehandler(request):
-
+    userId = request.user.id
     uname = request.POST['uname']
     uaddress = request.POST['address']
     uzipcode = request.POST['zipcode']
     utelp = request.POST['tel']
     # context = {'uname':uname,'address':address,'zipcode':zipcode,'tel':tel}
     #存储数据到数据库
-    temp=address_info.objects.filter(id=1)[0]
+    try :
+        temp=address_info.objects.filter(id=userId)[0]
+    except:
+        temp = address_info()
     temp.receiver=uname
     temp.address=uaddress
     temp.tel=utelp
     temp.zipcode=uzipcode
+    temp.user=request.user
     temp.save()
-
-    return redirect('/user_center_site')
+    return redirect('/userCenterSite/')
 
 # def test(request):
 #     if  request.user.is_authenticated():

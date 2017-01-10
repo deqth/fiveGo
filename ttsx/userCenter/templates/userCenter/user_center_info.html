@@ -7,7 +7,7 @@
 
 {% block content %}
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="/static/images/logo.png"></a>
+		<a href="/shopping/index/" class="logo fl"><img src="/static/images/logo.png"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
 		<div class="search_con fr">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
@@ -19,9 +19,9 @@
 		<div class="left_menu_con clearfix">
 			<h3>用户中心</h3>
 			<ul>
-				<li><a href="/user_center_info/" class="active">· 个人信息</a></li>
-				<li><a href="/user_center_order/">· 全部订单</a></li>
-				<li><a href="/user_center_site/">· 收货地址</a></li>
+				<li><a href="/userCenterInfo/" class="active">· 个人信息</a></li>
+				<li><a href="/userCenterOrder/">· 全部订单</a></li>
+				<li><a href="/userCenterSite/">· 收货地址</a></li>
 			</ul>
 		</div>
 		<div class="right_content clearfix">
@@ -35,18 +35,19 @@
 				</div>
 				
 				<h3 class="common_title2">最近浏览</h3>
-                <h2>-----------------------敬请期待-----------------------</h2>
 				<div class="has_view_list">
 					<ul class="goods_type_list clearfix">
+                        {% for temp in recents %}
 				<li>
-					<a href="detail.html"><img src="/static/images/adv01.jpg"></a>
-					<h4><a href="detail.html">大兴大棚草莓</a></h4>
+					<a href="detail.html"><img src="{{temp.smallImg}}"></a>
+					<h4><a href="detail.html">{{ temp.info }}</a></h4>
 					<div class="operate">
-						<span class="prize">￥16.80</span>
-						<span class="unit">16.80/500g</span>
+						<span class="prize">￥{{ temp.price }}</span>
+						<span class="unit">{{ temp.price }}/{{ temp.unit }}</span>
 						<a href="#" class="add_goods" title="加入购物车"></a>
 					</div>
 				</li>
+                        {% endfor %}
 
 
 			</ul>

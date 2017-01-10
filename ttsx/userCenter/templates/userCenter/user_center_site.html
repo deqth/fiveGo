@@ -4,12 +4,13 @@
     <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
     <script src="/static/js/jquery-1.12.4.min.js"></script>
-    <script src="/static/js/updateAddress"></script>
+    <script src="/static/js/updateAddress.js"></script>
+
 {% endblock head %}
 
 {% block content %}
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="/static/images/logo.png"></a>
+		<a href="/shopping/index/" class="logo fl"><img src="/static/images/logo.png"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
 		<div class="search_con fr">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
@@ -21,9 +22,9 @@
 		<div class="left_menu_con clearfix">
 			<h3>用户中心</h3>
 			<ul>
-				<li><a href="/user_center_info/">· 个人信息</a></li>
-				<li><a href="/user_center_order/">· 全部订单</a></li>
-				<li><a href="/user_center_site/" class="active">· 收货地址</a></li>
+				<li><a href="/userCenterInfo/">· 个人信息</a></li>
+				<li><a href="/userCenterOrder/" >· 全部订单</a></li>
+				<li><a href="/userCenterSite/" class="active">· 收货地址</a></li>
 			</ul>
 		</div>
 		<div class="right_content clearfix">
@@ -36,29 +37,33 @@
 				</div>
 				<h3 class="common_title2">编辑地址</h3>
 				<div class="site_con">
-					<form action="useraddressupdate" method="post">
+					<form action="userAddressUpdate"  method="post">
 						<div class="form_group">
 							<label>收件人：</label>
 							<input type="text" name="uname" id="uname">
+                            <span class="error_tip"></span>
 						</div>
 						<div class="form_group form_group2">
 							<label>详细地址：</label>
-							<textarea class="site_area" name="address"></textarea>
+							<textarea class="site_area" name="address" id="address"></textarea>
+                            <span class="error_tip"></span>
 						</div>
 						<div class="form_group">
 							<label>邮编：</label>
-							<input type="text" name="zipcode">
+							<input type="text" name="zipcode" id="zipcode">
+                            <span class="error_tip"></span>
 						</div>
 						<div class="form_group">
 							<label>手机：</label>
-							<input type="text" name="tel">
+							<input type="text" name="tel" id="tel">
+                            <span class="error_tip"></span>
 						</div>
-
-						<input type="submit" name='temp' value="提交" class="info_submit">
+						<input type="submit" name='temp' value="提交" class="info_submit" id="info_submit">
 					</form>
 				</div>
 		</div>
 	</div>
+
 
 {% endblock content %}
 </body>

@@ -69,10 +69,10 @@
 			<div class="subtitle fl">
 				<span>|</span>
                 {% for temp in fruit1 %}
-				<a href="#">{{ temp.title }}</a>
+				<a href="{% url 'shopping:detail' temp.type temp.id%}">{{ temp.info }}</a>
 				{% endfor %}
 			</div>
-			<a href="{% url 'shopping:list' 'fruit' '新鲜水果' 'id' 1%}" class="goods_more fr" id="fruit_more">查看更多 ></a>
+			<a href="{% url 'shopping:list' '新鲜水果' 'id' 1%}" class="goods_more fr" id="fruit_more">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
@@ -80,8 +80,8 @@
 			<ul class="goods_list fl">
 				{%for temp in fruit%}
 				<li>
-					<h4><a href="#">{{temp.title}}</a></h4>
-					<a href="#"><img src="{{temp.smallImg}}"></a>
+					<h4><a href="{% url 'shopping:detail' temp.type temp.id%}">{{temp.title}}</a></h4>
+					<a href="{% url 'shopping:detail' temp.type temp.id%}"><img src="{{temp.smallImg}}"></a>
 					<div class="prize">¥ {{temp.price}}</div>
 				</li>
 				{%endfor%}
@@ -95,10 +95,10 @@
 			<div class="subtitle fl">
 				<span>|</span>
 				{% for temp in seafood1 %}
-				<a href="#">{{ temp.title }}</a>
+				<a href="{% url 'shopping:detail' temp.type temp.id%}">{{ temp.info }}</a>
 				{% endfor %}
 			</div>
-			<a href="{% url 'shopping:list' 'seafood' '海鲜水产' 'id' 1%}" class="goods_more fr">查看更多 ></a>
+			<a href="{% url 'shopping:list' '海鲜水产' 'id' 1%}" class="goods_more fr">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
@@ -106,8 +106,8 @@
 			<ul class="goods_list fl">
 				{%for temp in seafood%}
 				<li>
-					<h4><a href="#">{{temp.title}}</a></h4>
-					<a href="#"><img src="{{temp.smallImg}}"></a>
+					<h4><a href="{% url 'shopping:detail' temp.type temp.id%}">{{temp.title}}</a></h4>
+					<a href="{% url 'shopping:detail' temp.type temp.id%}"><img src="{{temp.smallImg}}"></a>
 					<div class="prize">¥ {{temp.price}}</div>
 				</li>
 				{%endfor%}
@@ -121,10 +121,10 @@
 			<div class="subtitle fl">
 				<span>|</span>
 				{% for temp in meat1 %}
-				<a href="#">{{ temp.title }}</a>
+				<a href="{% url 'shopping:detail' temp.type temp.id%}">{{ temp.info }}</a>
 				{% endfor %}
 			</div>
-			<a href="{% url 'shopping:list' 'meat' '猪牛羊肉' 'id' 1%}" class="goods_more fr">查看更多 ></a>
+			<a href="{% url 'shopping:list' '猪牛羊肉' 'id' 1%}" class="goods_more fr">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
@@ -132,8 +132,8 @@
 			<ul class="goods_list fl">
 				{%for temp in meat%}
 				<li>
-					<h4><a href="#">{{temp.title}}</a></h4>
-					<a href="#"><img src="{{temp.smallImg}}"></a>
+					<h4><a href="{% url 'shopping:detail' temp.type temp.id%}">{{temp.title}}</a></h4>
+					<a href="{% url 'shopping:detail' temp.type temp.id%}"><img src="{{temp.smallImg}}"></a>
 					<div class="prize">¥ {{temp.price}}</div>
 				</li>
 				{%endfor%}
@@ -147,10 +147,10 @@
 			<div class="subtitle fl">
 				<span>|</span>
 				{% for temp in egg1 %}
-				<a href="#">{{ temp.title }}</a>
+				<a href="{% url 'shopping:detail' temp.type temp.id%}">{{ temp.info }}</a>
 				{% endfor %}
 			</div>
-			<a href="{% url 'shopping:list' 'egg' '禽类蛋品' 'id' 1%}" class="goods_more fr">查看更多 ></a>
+			<a href="{% url 'shopping:list' '禽类蛋品' 'id' 1%}" class="goods_more fr">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
@@ -158,8 +158,8 @@
 			<ul class="goods_list fl">
 				{%for temp in egg%}
 				<li>
-					<h4><a href="#">{{temp.title}}</a></h4>
-					<a href="#"><img src="{{temp.smallImg}}"></a>
+					<h4><a href="{% url 'shopping:detail' temp.type temp.id%}">{{temp.title}}</a></h4>
+					<a href="{% url 'shopping:detail' temp.type temp.id%}"><img src="{{temp.smallImg}}"></a>
 					<div class="prize">¥ {{temp.price}}</div>
 				</li>
 				{%endfor%}
@@ -173,10 +173,10 @@
 			<div class="subtitle fl">
 				<span>|</span>
 				{% for temp in vegetables1 %}
-				<a href="#">{{ temp.title }}</a>
+				<a href="{% url 'shopping:detail' temp.type temp.id%}">{{ temp.info }}</a>
 				{% endfor %}
 			</div>
-			<a href="{% url 'shopping:list' 'vegetables' '新鲜蔬菜' 'id' 1%}" class="goods_more fr">查看更多 ></a>
+			<a href="{% url 'shopping:list' '新鲜蔬菜' 'id' 1%}" class="goods_more fr">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
@@ -184,8 +184,8 @@
 			<ul class="goods_list fl">
 				{%for temp in vegetables%}
 				<li>
-					<h4><a href="#">{{temp.title}}</a></h4>
-					<a href="#"><img src="{{temp.smallImg}}"></a>
+					<h4><a href="{% url 'shopping:detail' temp.type temp.id%}">{{temp.title}}</a></h4>
+					<a href="{% url 'shopping:detail' temp.type temp.id%}"><img src="{{temp.smallImg}}"></a>
 					<div class="prize">¥ {{temp.price}}</div>
 				</li>
 				{%endfor%}
@@ -199,10 +199,10 @@
 			<div class="subtitle fl">
 				<span>|</span>
 				{% for temp in ice1 %}
-				<a href="#">{{ temp.title }}</a>
+				<a href="{% url 'shopping:detail' temp.type temp.id %}">{{ temp.info }}</a>
 				{% endfor %}
 			</div>
-			<a href="{% url 'shopping:list' 'ice' '速冻食品' 'id' 1%}" class="goods_more fr">查看更多 ></a>
+			<a href="{% url 'shopping:list' '速冻食品' 'id' 1 %}" class="goods_more fr">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
@@ -210,8 +210,8 @@
 			<ul class="goods_list fl">
 				{%for temp in ice%}
 				<li>
-					<h4><a href="#">{{temp.title}}</a></h4>
-					<a href="#"><img src="{{temp.smallImg}}"></a>
+					<h4><a href="{% url 'shopping:detail' temp.type temp.id%}">{{temp.info}}</a></h4>
+					<a href="{% url 'shopping:detail' temp.type temp.id%}"><img src="{{temp.smallImg}}"></a>
 					<div class="prize">¥ {{temp.price}}</div>
 				</li>
 				{%endfor%}

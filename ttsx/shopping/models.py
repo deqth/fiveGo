@@ -10,6 +10,7 @@ class GoodsInfo(models.Model):
     info = models.CharField(max_length=200,verbose_name='商品简介')   #商品简介
     info_detail = models.TextField(max_length=3000,verbose_name='商品详情') #商品详情
     bigImg = models.ImageField(verbose_name='商品大图')#商品图片
+    inventoryNum = models.IntegerField(verbose_name='库存量')
     cliNum = models.IntegerField(verbose_name='点击量')#点击量
     class Meta():
         db_table = 'goods'

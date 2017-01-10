@@ -3,14 +3,13 @@
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
-    <script src="/static/js/jquery-1.12.4.min.js"></script>
-    <script></script>
+    <script src="/static/jss/jquery-1.12.4.min.js"></script>
 {% endblock head %}
 
 {% block  content %}
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="/static/images/logo.png"></a>
+		<a href="/shopping/index/" class="logo fl"><img src="/static/images/logo.png"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;用户中心</div>
 		<div class="search_con fr">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
@@ -23,9 +22,9 @@
 		<div class="left_menu_con clearfix">
 			<h3>用户中心</h3>
 			<ul>
-				<li><a href="/user_center_info/">· 个人信息</a></li>
-				<li><a href="/user_center_order/" class="active">· 全部订单</a></li>
-				<li><a href="/user_center_site/">· 收货地址</a></li>
+				<li><a href="/userCenterInfo/">· 个人信息</a></li>
+				<li><a href="/userCenterOrder/" class="active">· 全部订单</a></li>
+				<li><a href="/userCenterSite/">· 收货地址</a></li>
 			</ul>
 		</div>
 
@@ -38,14 +37,12 @@
                     {% if temp.state == 1 %}
                         <li class="col02 stress">支付</li>
                     {% elif temp.state == 0 %}
-                        <li class="col02 stress">未支付</li>
+                        <li class="col02 stress"style="color: #c40000">未支付</li>
                     {% endif %}
                     </ul>
 
                     <table class="order_list_table w980">
                         <tbody>
-
-
                             <tr>
                                 <td width="55%">
                                     {% for temp1 in temp.orderdetailinfo_set.all %}
@@ -60,28 +57,20 @@
                                         <td width="15%">{{ temp.total }}元</td>
                                     {%  if temp.state == 1%}
                                         <td width="15%" >已付款</td>
-                                        <td width="15%"><a href="#"  class="oper_btn">查看物流</a></td>
+                                        <td width="15%"><a href="#" class="oper_btn">查看物流</a></td>
                                     {% elif temp.state == 0%}
                                         <td width="15%">未付款</td>
                                         <td width="15%"><a href="#" class="oper_btn">去付款</a></td>
                                     {% endif %}
-
-
                             </tr>
-
-
                         </tbody>
                     </table>
                 {% endfor %}
 
 				<div class="pagenation">
-					<a href="#"><上一页</a>
-					<a href="#" class="active">1</a>
-					<a href="#">2</a>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<a href="#">下一页></a>
+					{% for pindex in pagelist %}
+                        <a href="/userCenterOrder{{ pindex }}/">{{ pindex }}</a>
+                    {% endfor %}
 				</div>
 		</div>
 	</div>

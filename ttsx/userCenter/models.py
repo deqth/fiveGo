@@ -8,6 +8,7 @@ class cart(models.Model):
     num = models.IntegerField(verbose_name='数量')
     user = models.ForeignKey(User)
     goods_info = models.ForeignKey(GoodsInfo)
+    isselect = models.BooleanField()
     class Meta:
         db_table = 'cart'
         verbose_name = '购物车'
