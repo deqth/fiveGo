@@ -101,6 +101,19 @@ def detail(request, type, goods_id):
     count = cart.objects.all().count()
     newgoods = [temp for temp in allgoods]
     goods = GoodsInfo.objects.get(id=goods_id)
+    if request.user.is_authenticated():
+        if request.session.get('recent_goods'):
+            recent_goods = request.session['recent_goods']
+            if len(recent_goods)<5:
+                if goods_id not in recent_goods:
+                    recent_goods.append(goods_id)
+            else:
+                recent_goods = recent_goods[-4:]
+                if goods_id not in recent_goods:
+                    recent_goods.append(goods_id)
+            request.session['recent_goods']=recent_goods
+        else:
+            request.session['recent_goods']=[goods_id,]
     cliNum = goods.cliNum
     goods.cliNum = int(cliNum+1)
     goods.save()
@@ -132,10 +145,12 @@ def buy_now(request):
         goods_info = GoodsInfo.objects.get(pk=goodsid)
         price = goods_info.price
         subtotal = int(goodsnum)*price
-        order = OrderInfo.objects.create(user=user, state=0 , total=subtotal, ordernum=str(int(time.time()*1000))+str(int(time.clock()*1000000)), bpub_date='2000-1-1')
+        ordernum = str(int(time.time() * 1000)) + str(int(time.clock() * 1000000))
+        order = OrderInfo.objects.create(user=user, state=0 , total=subtotal, ordernum=ordernum, bpub_date='2000-1-1')
         OrderDetailInfo.objects.create(order=order, goods=goods_info, goods_price=price, count=1)
         goods = buy_goods(goods_info, goodsnum, subtotal)
-        context ={'goods':[goods]}
+        print order.pk
+        context ={'goods':[goods], 'orderid':order.pk}
     else:
         goods_order = cart.objects.filter(isselect=1)
         goods = []
@@ -158,10 +173,7 @@ def buy_now(request):
             goodsnum = goods_cart.num
             price = goods_info.price
             OrderDetailInfo.objects.create(order=order, goods=goods_info, goods_price=price, count=goodsnum)
-        context = {'goods':goods,'addr':addr[0]}
-        order.state=1
-        order.save()
-
+        context = {'goods':goods,'addr':addr[0], 'orderid':order.pk}
     return render(request,'shopping/place_order.html', context)
 
 

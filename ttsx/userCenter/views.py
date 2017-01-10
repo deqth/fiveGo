@@ -118,7 +118,12 @@ def userCenterInfo(request):
     addr = address_info.objects.filter(user=puser.pk)
     if not addr:
         addr = ['']
-    context = {'user':puser,'addr':addr[0]}
+    recent_goods = request.session.get('recent_goods')
+    recents = []
+    for recent_good in recent_goods:
+        recent = GoodsInfo.objects.get(id=recent_good)
+        recents.append(recent)
+    context = {'user':puser,'addr':addr[0], 'recents':recents[::-1]}
     return  render(request,'userCenter/user_center_info.html',context)
 
 #用户地址
@@ -138,6 +143,9 @@ def userCenterSite(request):
 def userCenterOrder(request,pIndex):
     userId=request.user.id
     #根据登陆用户id查处他的订单
+    if request.GET.get('orderid'):
+        orderid = request.GET.get('orderid')
+        OrderInfo.objects.filter(id=orderid).update(state=1)
     orders = OrderInfo.objects.filter(user=userId)
     #分页
     pgi = Paginator(orders,3)
