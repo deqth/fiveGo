@@ -102,18 +102,16 @@ def userCenterSite(request):
 
 
 #用户全部订单
-def userCenterOrder(request):
+def userCenterOrder(request,pIndex):
     #根据登陆用户id查处他的订单
     orders = OrderInfo.objects.filter(user=1)
-    #print (orders.total)
-    #根据订单号查询订单详情
-    orderdet = OrderDetailInfo.objects.filter(order__id__in=[1,2,3,4])
-    print(len(orderdet))
-   # print (orderdet.ordernum)
-    #根据订单详情查出对应商品
-    goods = OrderDetailInfo.objects.filter(goods__id__in=[0,1,2,3,4])
-    # print(goods.goods.title)
-    context = {'orders':orders,'orderdet':orderdet,'goods':goods}
+    #分页
+    pgi = Paginator(orders,10)
+    if pIndex =='':
+        pIndex='1'
+    orders2 = pgi.page(int(pIndex))
+    pagelist = pgi.page_range
+    context = {'orders':orders2,'pagelist':pagelist,'pIndex':pIndex}
     return  render(request,'userCenter/user_center_order.html',context)
 
 

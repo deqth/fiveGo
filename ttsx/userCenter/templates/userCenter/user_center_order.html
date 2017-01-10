@@ -3,8 +3,7 @@
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
-    <script src="/static/js/jquery-1.12.4.min.js"></script>
-    <script></script>
+    <script src="/static/jss/jquery-1.12.4.min.js"></script>
 {% endblock head %}
 
 {% block  content %}
@@ -38,14 +37,12 @@
                     {% if temp.state == 1 %}
                         <li class="col02 stress">支付</li>
                     {% elif temp.state == 0 %}
-                        <li class="col02 stress">未支付</li>
+                        <li class="col02 stress"style="color: #c40000">未支付</li>
                     {% endif %}
                     </ul>
 
                     <table class="order_list_table w980">
                         <tbody>
-
-
                             <tr>
                                 <td width="55%">
                                     {% for temp1 in temp.orderdetailinfo_set.all %}
@@ -60,28 +57,20 @@
                                         <td width="15%">{{ temp.total }}元</td>
                                     {%  if temp.state == 1%}
                                         <td width="15%" >已付款</td>
-                                        <td width="15%"><a href="#"  class="oper_btn">查看物流</a></td>
+                                        <td width="15%"><a href="#" class="oper_btn">查看物流</a></td>
                                     {% elif temp.state == 0%}
                                         <td width="15%">未付款</td>
                                         <td width="15%"><a href="#" class="oper_btn">去付款</a></td>
                                     {% endif %}
-
-
                             </tr>
-
-
                         </tbody>
                     </table>
                 {% endfor %}
 
 				<div class="pagenation">
-					<a href="#"><上一页</a>
-					<a href="#" class="active">1</a>
-					<a href="#">2</a>
-					<a href="#">3</a>
-					<a href="#">4</a>
-					<a href="#">5</a>
-					<a href="#">下一页></a>
+					{% for pindex in pagelist %}
+                        <a href="/user_center_order{{ pindex }}/">{{ pindex }}</a>
+                    {% endfor %}
 				</div>
 		</div>
 	</div>
