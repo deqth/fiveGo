@@ -2,6 +2,7 @@
 from django.contrib import admin
 from models import *
 
+#增加额外的方法
 def make_published(modeladmin, request, queryset):
     queryset.update(state=1)
 
@@ -10,6 +11,7 @@ class OrderInfoAdmin(admin.ModelAdmin):
     search_fields = ('total', )
     list_filter = ('bpub_date',)
     actions = [make_published]
+
 class address_infoAdmin(admin.ModelAdmin):
     exclude = ('isDelete',)
 
