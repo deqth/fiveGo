@@ -1,17 +1,36 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title%}天天生鲜-提交支付{% endblock title %}
 {% block head %}
-<script type="text/javascript" src="/static/jss/jquery-1.12.4.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/css/reset.css">
-<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <script type="text/javascript", src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            num = 0.0
+            total = 0.0
+            $(".goods_list_td").each(function () {
+                num = num+parseInt($(this).children(".col06").text())
+                total = total+parseFloat($(this).children(".col07").text())
+            })
+            $(".total_goods_count b").text(total.toFixed(2))
+            $(".total_goods_count em").text(num)
+            $(".total_pay b").text((total+10).toFixed(2))
+
+        })
+    </script>
 {%endblock head%}
 {% block content %}
     <div class="search_bar clearfix">
 		<a href="index.html" class="logo fl"><img src="/data/images/goods/logo.png"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;提交订单</div>
 		<div class="search_con fr">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
+			<form action="{% url 'shopping:search' 'id' 1%}" method="get">
+			<input type="text" class="input_text fl" name="search_good" id="search_text" placeholder="搜索商品">
+			<input type="submit" class="input_btn fr" id="search_button" value="搜索">
+            <p><span id='search_result'></span></p>
+            </form>
 		</div>
 	</div>
     <h3 class="common_title">确认收货地址</h3>
@@ -49,15 +68,17 @@
 			<li class="col04">数量</li>
 			<li class="col05">小计</li>
 		</ul>
+        {% for good in goods %}
 		<ul class="goods_list_td clearfix">
-			<li class="col01">1</li>
-			<li class="col02"><img src="/data/images/goods/goods012.jpg"></li>
-			<li class="col03">{{goods_order.info}}</li>
-			<li class="col04">{{goods_order.unit}}</li>
-			<li class="col05">{{goods_order.price}}</li>
-			<li class="col06">{{goods_count}}</li>
-			<li class="col07">{{money}}</li>
+            <li class="col01">{{ good.index }}</li>
+			<li class="col02"><img src="{{good.goods_info.smallImg}}"></li>
+			<li class="col03">{{good.goods_info.info}}</li>
+			<li class="col04">{{good.goods_info.unit}}</li>
+			<li class="col05">{{good.goods_info.price}}</li>
+			<li class="col06">{{ good.num }}</li>
+			<li class="col07">{{ good.subtotal }}</li>
 		</ul>
+        {% endfor %}
 	</div>
 
 	<h3 class="common_title">总金额结算</h3>

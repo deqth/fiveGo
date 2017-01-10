@@ -7,7 +7,7 @@ urlpatterns = [
     url(r'^list/(\w+)/(\w+)/(\d*)$', views.list, name='list'),#列表页
     url(r'^search/(\w+)/(\d+)$', views.search, name='search'),#搜索页
     url(r'^detail/(\w+)/(\d+)$', views.detail, name='detail'),#详情页
-    url(r'^order/',views.buy_now),#立即购买
+    url(r'^order/$', views.buy_now, name='order'),#立即购买
 ]
 
 

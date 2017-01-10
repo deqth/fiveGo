@@ -24,6 +24,7 @@ def register(request):
 
 @login_required()
 def cart(request):
+    userCenter.models.cart.objects.all().update(isselect=1)
     cartAll = userCenter.models.cart.objects.all()
     context = {'cartAll':cartAll}
     return render(request,'userCenter/cart.html', context)
@@ -42,6 +43,22 @@ def cartchange(request):
     good.num = num
     good.save()
     return HttpResponse('ok')
+
+
+def isselect(request):
+    goodsid = request.GET.get('goodsid')
+    val = request.GET.get('val')
+    good = userCenter.models.cart.objects.get(pk=goodsid)
+    good.isselect = int(val)
+    good.save()
+    return HttpResponse('ok')
+
+
+def allselect(request):
+    val = request.GET.get('val')
+    userCenter.models.cart.objects.all().update(isselect=int(val))
+    return HttpResponse('ok')
+
 
 #验证提交信息的正确性
 class ttsxUser(forms.Form):

@@ -22,6 +22,7 @@ class Migration(migrations.Migration):
                 ('info', models.CharField(max_length=200)),
                 ('info_detail', models.CharField(max_length=3000)),
                 ('bigImg', models.ImageField(upload_to=b'')),
+                ('inventoryNum', models.IntegerField()),
                 ('cliNum', models.IntegerField()),
             ],
             options={

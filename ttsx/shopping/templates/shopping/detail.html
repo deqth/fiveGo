@@ -35,6 +35,11 @@
 					$("#show_count").text(dic.count)
 				})
             })
+            $(".buy_btn").click(function () {
+                goodsid = parseInt($(this).parent().siblings("#goodsid").text())
+                goodsnum = parseInt($(this).parent().siblings(".goods_num").find(".num_show").val())
+                window.location.href = "{% url 'shopping:order' %}?goodsid="+goodsid+"&goodsnum="+goodsnum
+            })
         })
     </script>
 {% endblock %}
