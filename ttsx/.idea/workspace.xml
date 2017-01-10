@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="18cd7ace-44a8-4eab-a8f0-7046abe6366e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/shopping/migrations/0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userCenter/migrations/0001_initial.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/media/images/goods/goods_detail.jpg" afterPath="$PROJECT_DIR$/media/images/goods_detail.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopping/models.py" afterPath="$PROJECT_DIR$/shopping/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopping/templates/shopping/detail.html" afterPath="$PROJECT_DIR$/shopping/templates/shopping/detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopping/templates/shopping/list.html" afterPath="$PROJECT_DIR$/shopping/templates/shopping/list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopping/templates/shopping/place_order.html" afterPath="$PROJECT_DIR$/shopping/templates/shopping/place_order.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopping/urls.py" afterPath="$PROJECT_DIR$/shopping/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopping/views.py" afterPath="$PROJECT_DIR$/shopping/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/userCenter/models.py" afterPath="$PROJECT_DIR$/userCenter/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/userCenter/templates/userCenter/cart.html" afterPath="$PROJECT_DIR$/userCenter/templates/userCenter/cart.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/userCenter/urls.py" afterPath="$PROJECT_DIR$/userCenter/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/userCenter/views.py" afterPath="$PROJECT_DIR$/userCenter/views.py" />
-    </list>
+    <list default="true" id="18cd7ace-44a8-4eab-a8f0-7046abe6366e" name="Default" comment="" />
     <ignored path="ttsx.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -640,7 +625,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="713" extended-state="6" />
+    <frame x="0" y="23" width="1280" height="713" extended-state="1" />
     <editor active="false" />
     <layout>
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24104235" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
