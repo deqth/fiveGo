@@ -17,7 +17,12 @@ def index(request):
     egg = GoodsInfo.objects.all().filter(type='禽类蛋品')
     vegetables = GoodsInfo.objects.all().filter(type='新鲜蔬菜')
     ice = GoodsInfo.objects.all().filter(type='速冻食品')
-    count = cart.objects.all().count()
+    if request.user.is_authenticated():
+        userId = request.user.id
+        count = cart.objects.filter(user_id=userId).count()
+    else:
+        count = 0
+    print count
     context = {'fruit':fruit[0:4], 'fruit1':fruit[5:8], 'seafood':seafood[0:4], 'seafood1':seafood[5:8], 'meat':meat[0:4], 'meat1':meat[5:8], 'egg':egg[0:4], 'egg1':egg[5:8], 'vegetables':vegetables[0:4], 'vegetables1':vegetables[5:8], 'ice':ice[0:4], 'ice1':ice[0:4], 'count':count}
     return render(request, 'shopping/index.html', context)
 
@@ -31,7 +36,11 @@ def list(request, type, attr, pIndex):
         goods_order = goods.order_by("-"+attr)
     else:
         goods_order = goods.order_by(attr)
-    count = cart.objects.all().count()
+    if request.user.is_authenticated():
+        userId = request.user.id
+        count = cart.objects.filter(user_id=userId).count()
+    else:
+        count = 0
     newgoods = [temp for temp in goods]
     p = Paginator(goods_order, 10)
     pIndex = int(pIndex)
@@ -53,7 +62,11 @@ def search(request, attr, pIndex):
         return addgoods(request)
     search_good = request.GET['search_good']
     results = GoodsInfo.objects.filter(info__contains=search_good)
-    count = cart.objects.all().count()
+    if request.user.is_authenticated():
+        userId = request.user.id
+        count = cart.objects.filter(user_id=userId).count()
+    else:
+        count = 0
     results_order = results.order_by(attr)
     p = Paginator(results_order, 10)
     pIndex = int(pIndex)
@@ -75,8 +88,10 @@ def search(request, attr, pIndex):
 
 
 # 当点击购物车图表或者在详情页加入购入车时，将商品及数量信息加入购物车
+@login_required()
 def addgoods(request):
     user = request.user
+    userId = request.user.id
     goodsid = request.POST.get('goodsid')
     goodsnum = long(request.POST.get('goodsnum'))
     goods_info = GoodsInfo.objects.get(id=goodsid)
@@ -87,7 +102,7 @@ def addgoods(request):
         cart_good.save()
     except Exception,e:
         cart.objects.create(num=goodsnum, user=user, goods_info=goods_info, isselect=1)
-    count = cart.objects.all().count()
+    count = cart.objects.filter(user_id=userId).count()
     return JsonResponse({'count': count})
 
 
@@ -96,9 +111,14 @@ def detail(request, type, goods_id):
     if request.method == 'POST':
         return addgoods(request)
     allgoods = GoodsInfo.objects.all().filter(type=type)
-    count = cart.objects.all().count()
+    if request.user.is_authenticated():
+        userId = request.user.id
+        count = cart.objects.filter(user_id=userId).count()
+    else:
+        count = 0
     newgoods = [temp for temp in allgoods]
     goods = GoodsInfo.objects.get(id=goods_id)
+    #将用户最近浏览的商品加入session
     if request.user.is_authenticated():
         if request.session.get('recent_goods'):
             recent_goods = request.session['recent_goods']
@@ -135,6 +155,7 @@ def buy_now(request):
     userId = request.user.id
     puser = User.objects.get(pk=userId)
     addr = address_info.objects.filter(user=puser.pk)
+    print (addr)
     if not addr:
         addr = ['']
     if request.GET.get("goodsid",None):
@@ -148,7 +169,7 @@ def buy_now(request):
         OrderDetailInfo.objects.create(order=order, goods=goods_info, goods_price=price, count=1)
         goods = buy_goods(goods_info, goodsnum, subtotal)
         print order.pk
-        context ={'goods':[goods], 'orderid':order.pk}
+        context ={'goods':[goods], 'addr':addr[0],'orderid':order.pk}
     else:
         goods_order = cart.objects.filter(isselect=1)
         goods = []

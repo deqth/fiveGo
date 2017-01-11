@@ -8,6 +8,7 @@ from django import forms
 from django.contrib import auth
 from django.core.paginator import *
 from django.contrib.auth.decorators import login_required
+from shopping.views import *
 def login_register_split(request,get,post):
     if request.method == 'GET':
         return get(request)
@@ -22,8 +23,9 @@ def register(request):
 
 @login_required()
 def cart(request):
-    userCenter.models.cart.objects.all().update(isselect=1)
-    cartAll = userCenter.models.cart.objects.all()
+    userId = request.user.id
+    userCenter.models.cart.objects.filter(user_id=userId).update(isselect=1)
+    cartAll = userCenter.models.cart.objects.filter(user_id=userId)
     context = {'cartAll':cartAll}
     return render(request,'userCenter/cart.html', context)
 
@@ -110,16 +112,19 @@ def logout_view(request):
 @login_required()
 def userCenterInfo(request):
     #判断用户是否登陆
+    if request.method == 'POST':
+        return addgoods(request)
     userId = request.user.id
     puser = User.objects.get(pk=userId)
     addr = address_info.objects.filter(user=puser.pk)
     if not addr:
         addr = ['']
-    recent_goods = request.session.get('recent_goods')
     recents = []
-    for recent_good in recent_goods:
-        recent = GoodsInfo.objects.get(id=recent_good)
-        recents.append(recent)
+    if request.session.get('recent_goods'):
+        recent_goods = request.session.get('recent_goods')
+        for recent_good in recent_goods:
+            recent = GoodsInfo.objects.get(id=recent_good)
+            recents.append(recent)
     context = {'user':puser,'addr':addr[0], 'recents':recents[::-1]}
     return  render(request,'userCenter/user_center_info.html',context)
 
@@ -131,7 +136,7 @@ def userCenterSite(request):
     if not addr:
         addr=['']
     context = {'user': puser, 'addr': addr[0]}
-    return  render(request,'userCenter/user_center_site.html',context)
+    return render(request,'userCenter/user_center_site.html',context)
 
 
 #用户全部订单
@@ -143,7 +148,7 @@ def userCenterOrder(request,pIndex):
     if request.GET.get('orderid'):
         orderid = request.GET.get('orderid')
         OrderInfo.objects.filter(id=orderid).update(state=1)
-    orders = OrderInfo.objects.filter(user=userId)
+    orders = OrderInfo.objects.filter(user=userId)[::-1]
     #分页
     pgi = Paginator(orders,3)
     if pIndex =='':

@@ -1,17 +1,31 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}天天生鲜-用户中心{% endblock title %}
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+    <script type="text/javascript", src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".add_goods").click(function () {
+                goodsid = $(this).parent().siblings("#goodsid").text()
+				goodsnum = 1
+                $.post("",{'goodsid':goodsid, 'goodsnum':goodsnum})
+            })
+        })
+    </script>
 {% endblock head %}
 
 {% block content %}
 	<div class="search_bar clearfix">
 		<a href="{% url 'shopping:index' %}" class="logo fl"><img src="/static/images/logo.png"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
-		<div class="search_con fr">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
+		<div class="search_con fl">
+			<form action="{% url 'shopping:search' 'id' 1%}" method="get">
+			<input type="text" class="input_text fl" name="search_good" id="search_text" placeholder="搜索商品">
+			<input type="submit" class="input_btn fr" id="search_button" value="搜索">
+            <p><span id='search_result'></span></p>
+            </form>
 		</div>		
 	</div>
 
@@ -38,18 +52,17 @@
 				<div class="has_view_list">
 					<ul class="goods_type_list clearfix">
                         {% for temp in recents %}
-				<li>
-					<a href="detail.html"><img src="{{temp.smallImg}}"></a>
-					<h4><a href="detail.html">{{ temp.info }}</a></h4>
-					<div class="operate">
-						<span class="prize">￥{{ temp.price }}</span>
-						<span class="unit">{{ temp.price }}/{{ temp.unit }}</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
+                        <li>
+                            <a href="{% url 'shopping:detail' temp.type temp.id %}"><img src="{{temp.smallImg}}"></a>
+                            <h4><a href="{% url 'shopping:detail' temp.type temp.id %}">{{ temp.info }}</a></h4>
+                            <div class="operate">
+                                <span class="prize">￥{{ temp.price }}</span>
+                                <span class="unit">{{ temp.price }}/{{ temp.unit }}</span>
+                                <a href="javascript:;" class="add_goods" title="加入购物车"></a>
+                            </div>
+                            <p id="goodsid" hidden>{{ temp.id }}</p>
+                        </li>
                         {% endfor %}
-
-
 			</ul>
 		</div>
 		</div>
