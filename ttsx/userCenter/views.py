@@ -1,9 +1,7 @@
 #coding=utf-8
-from django import forms
 import userCenter
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404,HttpResponseRedirect,JsonResponse
-from django.contrib.auth.models import User
 from models import *
 from shopping.models import *
 from django import forms
@@ -177,15 +175,5 @@ def updatehandler(request):
     temp.save()
     return redirect('/userCenterSite/')
 
-# def test(request):
-#     if  request.user.is_authenticated():
-#         user = request.user
-#         return HttpResponse(user.password)
-#     raise Http404
-#
-# from django.contrib.auth.decorators import login_required
-# @login_required()
-# def test_login(request):
-#     '''利用装饰器判断登陆，如果没有登陆直接跳转至登陆页面，如果登陆成功会跳转至相应的页面'''
-#     return HttpResponse('xxx')
+
 

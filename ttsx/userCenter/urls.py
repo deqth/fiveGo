@@ -14,7 +14,5 @@ urlpatterns = [
     url(r'^userCenterSite/$', views.userCenterSite),
     url(r'^userCenterOrder([0-9]*)/$', views.userCenterOrder),
     url(r'^userCenterSite/userAddressUpdate$', views.updatehandler),
-
-    # url(r'^test/$', views.test_login),
 ]
 
