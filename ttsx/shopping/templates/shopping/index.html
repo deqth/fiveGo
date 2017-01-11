@@ -10,7 +10,7 @@
 
 {% block content %}
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="{% static 'images/logo.png' %}"></a>
+		<a href="{% url 'shopping:index' %}" class="logo fl"><img src="{% static 'images/logo.png' %}"></a>
 		<div class="search_con fl">
             <form action="{% url 'shopping:search' 'id' 1%}" method="get">
 			<input type="text" class="input_text fl" name="search_good" id="search_text" placeholder="搜索商品">
@@ -219,21 +219,3 @@
 		</div>
 	</div>
 {% endblock %}
-{##}
-{#    <!--<script type="text/javascript" src="js/slideshow.js"></script>-->#}
-{#	<script type="text/javascript">#}
-{#		BCSlideshow('focuspic');#}
-{#		var oFruit = document.getElementById('fruit_more');#}
-{#		var oShownum = document.getElementById('show_count');#}
-{##}
-{#		var hasorder = localStorage.getItem('order_finish');#}
-{##}
-{#		if(hasorder)#}
-{#		{#}
-{#			oShownum.innerHTML = '2';#}
-{#		}#}
-{##}
-{#		oFruit.onclick = function(){#}
-{#			window.location.href = 'list.html';#}
-{#		}#}
-{#	</script>#}

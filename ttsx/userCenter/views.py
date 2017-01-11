@@ -107,7 +107,7 @@ def toLogin(request):
 def logout_view(request):
     auth.logout(request)
 # 可以根据需求跳转到特定页面
-    return HttpResponseRedirect("/shopping/index")
+    return HttpResponseRedirect("/")
 #用户信息
 @login_required()
 def userCenterInfo(request):
@@ -176,16 +176,4 @@ def updatehandler(request):
     temp.user=request.user
     temp.save()
     return redirect('/userCenterSite/')
-
-# def test(request):
-#     if  request.user.is_authenticated():
-#         user = request.user
-#         return HttpResponse(user.password)
-#     raise Http404
-#
-# from django.contrib.auth.decorators import login_required
-# @login_required()
-# def test_login(request):
-#     '''利用装饰器判断登陆，如果没有登陆直接跳转至登陆页面，如果登陆成功会跳转至相应的页面'''
-#     return HttpResponse('xxx')
 
