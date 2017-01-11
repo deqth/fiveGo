@@ -184,7 +184,7 @@ def buy_now(request):
             index += 1
             good = buy_goods(goods_info, goodsnum, subtotal, index)
             goods.append(good)
-        order = OrderInfo.objects.create(user=user, state=0, total=total, ordernum=ordernum, bpub_date='2000-1-1')
+        order = OrderInfo.objects.create(user=user, state=0, total=total, ordernum=ordernum)
         for goods_cart in goods_order:
             goods_info = goods_cart.goods_info
             goodsnum = goods_cart.num
