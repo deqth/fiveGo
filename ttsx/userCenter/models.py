@@ -1,5 +1,4 @@
 #coding=utf-8
-from django.db import models
 from shopping.models import *
 from django.contrib.auth.models import User
 
@@ -34,8 +33,8 @@ class OrderInfo(models.Model):
     user = models.ForeignKey(User)
     state = models.BooleanField(verbose_name='支付状态')
     total = models.DecimalField(max_digits=5,decimal_places=2,verbose_name='支付金额')
-    ordernum = models.CharField(max_length=20,verbose_name='订单号')
-    bpub_date = models.DateTimeField(verbose_name='订单日期')
+    ordernum = models.CharField(max_length=30,verbose_name='订单号')
+    bpub_date = models.DateTimeField(verbose_name='订单日期',auto_now_add=True)
     class Meta:
         verbose_name = '订单'
         verbose_name_plural = verbose_name

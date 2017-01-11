@@ -105,14 +105,13 @@ def toLogin(request):
 def logout_view(request):
     auth.logout(request)
 # 可以根据需求跳转到特定页面
-    return HttpResponseRedirect("/shopping/index")
+    return HttpResponseRedirect("/")
 #用户信息
 @login_required()
 def userCenterInfo(request):
     #判断用户是否登陆
     userId = request.user.id
     puser = User.objects.get(pk=userId)
-    print (puser)
     addr = address_info.objects.filter(user=puser.pk)
     if not addr:
         addr = ['']
@@ -174,6 +173,3 @@ def updatehandler(request):
     temp.user=request.user
     temp.save()
     return redirect('/userCenterSite/')
-
-
-
