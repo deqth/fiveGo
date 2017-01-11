@@ -2,11 +2,9 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,JsonResponse,Http404,HttpResponseRedirect
 from django.core.paginator import Paginator
-from models import *
 from userCenter.models import *
 from django.contrib.auth.models import User
 import random
-from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 import time
 from django.core.urlresolvers import reverse
@@ -171,7 +169,7 @@ def buy_now(request):
         price = goods_info.price
         subtotal = int(goodsnum)*price
         ordernum = str(int(time.time() * 1000)) + str(int(time.clock() * 1000000))
-        order = OrderInfo.objects.create(user=user, state=0 , total=subtotal, ordernum=ordernum, bpub_date='2000-1-1')
+        order = OrderInfo.objects.create(user=user, state=0 , total=subtotal, ordernum=ordernum)
         OrderDetailInfo.objects.create(order=order, goods=goods_info, goods_price=price, count=1)
         goods = buy_goods(goods_info, goodsnum, subtotal)
         context ={'goods':[goods], 'addr':addr[0],'orderid':order.pk}
