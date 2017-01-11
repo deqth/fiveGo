@@ -115,7 +115,7 @@ $(function(){
 		{
 			$.post("", { name: $('#user_name').val(), pwd: $('#pwd').val(), email:$('#email').val()}, function(data){
                    if(data.register){
-					   window.location.href = '/shopping/index'
+					   window.location.href = '/'
 				   }else {
 					   $('.user_error').show()
 				   }

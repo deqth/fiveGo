@@ -20,7 +20,7 @@ from django.conf import settings
 from django.views.generic.base import RedirectView
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^shopping/', include('shopping.urls', namespace='shopping')),
+    url(r'^', include('shopping.urls', namespace='shopping')),
     url(r'^userCenter/', include('userCenter.urls', namespace='userCenter')),
     url(r'^favicon.ico$', RedirectView.as_view(url=r'static/favicon.ico')),
 ]+ static(settings.MEDIA_URL , document_root=settings.MEDIA_ROOT)
