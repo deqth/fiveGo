@@ -10,7 +10,8 @@
             $(".add_goods").click(function () {
                 goodsid = $(this).parent().siblings("#goodsid").text()
 				goodsnum = 1
-                $.post("",{'goodsid':goodsid, 'goodsnum':goodsnum})
+                $.post("{% url 'shopping:addgoods' %}",{'goodsid':goodsid, 'goodsnum':goodsnum},function(dic){
+				})
             })
         })
     </script>

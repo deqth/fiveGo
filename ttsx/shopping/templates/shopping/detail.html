@@ -28,11 +28,17 @@
                     $(this).parents(".goods_detail_list").children(".total").children("em").text((num*price).toFixed(2))
                 }
             })
+            {#当加入购物车时，如果用户未登录则跳到登录页面#}
             $(".add_cart").click(function () {
                 goodsid = $(this).parent().siblings("#goodsid").text()
                 goodsnum = parseInt($(this).parent().siblings(".goods_num").find(".num_show").val())
-                $.post("",{'goodsid':goodsid, 'goodsnum':goodsnum},function(dic){
-					$("#show_count").text(dic.count)
+                $.post("{% url 'shopping:addgoods' %}",{'goodsid':goodsid, 'goodsnum':goodsnum},function(dic){
+                    if(dic.user=='AnonymousUser'){
+                        window.location.href = "{% url 'userCenter:login' %}"
+                    }
+                    else {
+                        $("#show_count").text(dic.count)
+                    }
 				})
             })
             $(".buy_btn").click(function () {

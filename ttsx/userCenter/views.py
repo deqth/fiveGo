@@ -114,8 +114,6 @@ def logout_view(request):
 @login_required()
 def userCenterInfo(request):
     #判断用户是否登陆
-    if request.method == 'POST':
-        return addgoods(request)
     userId = request.user.id
     puser = User.objects.get(pk=userId)
     print (puser)
