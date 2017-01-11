@@ -1,7 +1,10 @@
 #coding=utf-8
 import userCenter
+from django.shortcuts import redirect
+from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django import forms
 from django.contrib import auth
+
 from shopping.views import *
 def login_register_split(request,get,post):
     if request.method == 'GET':
