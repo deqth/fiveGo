@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="18cd7ace-44a8-4eab-a8f0-7046abe6366e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopping/templates/shopping/detail.html" afterPath="$PROJECT_DIR$/shopping/templates/shopping/detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopping/templates/shopping/index.html" afterPath="$PROJECT_DIR$/shopping/templates/shopping/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopping/templates/shopping/list.html" afterPath="$PROJECT_DIR$/shopping/templates/shopping/list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopping/templates/shopping/search.html" afterPath="$PROJECT_DIR$/shopping/templates/shopping/search.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopping/templates/shopping/user_center_site.html" afterPath="$PROJECT_DIR$/shopping/templates/shopping/user_center_site.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopping/views.py" afterPath="$PROJECT_DIR$/shopping/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ttsx/settings.py" afterPath="$PROJECT_DIR$/ttsx/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/userCenter/templates/userCenter/user_center_info.html" afterPath="$PROJECT_DIR$/userCenter/templates/userCenter/user_center_info.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/userCenter/views.py" afterPath="$PROJECT_DIR$/userCenter/views.py" />
     </list>
@@ -33,11 +36,11 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/userCenter/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="27" column="57" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
+            <state relative-caret-position="-1838">
+              <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
               <folding>
                 <element signature="e#14#38#0" expanded="true" />
-                <marker date="1484096651000" expanded="true" signature="5591:5785" ph="..." />
+                <marker date="1484099226000" expanded="true" signature="5686:5880" ph="..." />
               </folding>
             </state>
           </provider>
@@ -53,11 +56,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shopping/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-513">
-              <caret line="92" column="16" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
+            <state relative-caret-position="247">
+              <caret line="34" column="32" selection-start-line="33" selection-start-column="4" selection-end-line="34" selection-end-column="32" />
               <folding>
                 <element signature="e#14#49#0" expanded="true" />
               </folding>
@@ -80,16 +83,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="209">
               <caret line="84" column="26" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_center_info.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/userCenter/templates/userCenter/user_center_info.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="798">
-              <caret line="42" column="42" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -125,11 +118,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="user_center_info.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/userCenter/templates/userCenter/user_center_info.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="list.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shopping/templates/shopping/list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1862">
-              <caret line="99" column="71" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="71" />
+            <state relative-caret-position="266">
+              <caret line="98" column="60" selection-start-line="98" selection-start-column="20" selection-end-line="98" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -166,10 +169,10 @@
         <option value="$PROJECT_DIR$/shopping/templates/shopping/list.html" />
         <option value="$PROJECT_DIR$/ttsx/urls.py" />
         <option value="$PROJECT_DIR$/shopping/templates/shopping/place_order.html" />
-        <option value="$PROJECT_DIR$/userCenter/templates/userCenter/user_center_info.html" />
         <option value="$PROJECT_DIR$/ttsx/settings.py" />
-        <option value="$PROJECT_DIR$/userCenter/views.py" />
         <option value="$PROJECT_DIR$/shopping/views.py" />
+        <option value="$PROJECT_DIR$/userCenter/views.py" />
+        <option value="$PROJECT_DIR$/userCenter/templates/userCenter/user_center_info.html" />
       </list>
     </option>
   </component>
@@ -292,20 +295,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ttsx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ttsx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ttsx" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -723,7 +712,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#14#38#0" expanded="true" />
-            <marker date="1484096651000" expanded="true" signature="5591:5785" ph="..." />
+            <marker date="1484099226000" expanded="true" signature="5686:5880" ph="..." />
           </folding>
         </state>
       </provider>
@@ -808,7 +797,7 @@
           <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
           <folding>
             <element signature="e#14#38#0" expanded="true" />
-            <marker date="1484096651000" expanded="true" signature="5591:5785" ph="..." />
+            <marker date="1484099226000" expanded="true" signature="5686:5880" ph="..." />
           </folding>
         </state>
       </provider>
@@ -872,7 +861,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#14#38#0" expanded="true" />
-            <marker date="1484096651000" expanded="true" signature="5591:5785" ph="..." />
+            <marker date="1484099226000" expanded="true" signature="5686:5880" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1048,14 +1037,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/userCenter/templates/userCenter/user_center_info.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="42" column="42" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ttsx/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -1072,25 +1053,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/userCenter/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="27" column="57" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
-          <folding>
-            <element signature="e#14#38#0" expanded="true" />
-            <marker date="1484096651000" expanded="true" signature="5591:5785" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shopping/templates/shopping/list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1862">
-          <caret line="99" column="71" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shopping/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -1099,13 +1061,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/shopping/templates/shopping/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="98" column="60" selection-start-line="98" selection-start-column="20" selection-end-line="98" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/shopping/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-513">
-          <caret line="92" column="16" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="16" />
+        <state relative-caret-position="247">
+          <caret line="34" column="32" selection-start-line="33" selection-start-column="4" selection-end-line="34" selection-end-column="32" />
           <folding>
             <element signature="e#14#49#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/userCenter/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1838">
+          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+          <folding>
+            <element signature="e#14#38#0" expanded="true" />
+            <marker date="1484099226000" expanded="true" signature="5686:5880" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/userCenter/templates/userCenter/user_center_info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>

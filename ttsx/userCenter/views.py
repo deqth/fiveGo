@@ -10,6 +10,7 @@ from django import forms
 from django.contrib import auth
 from django.core.paginator import *
 from django.contrib.auth.decorators import login_required
+from shopping.views import *
 def login_register_split(request,get,post):
     if request.method == 'GET':
         return get(request)
@@ -113,6 +114,8 @@ def logout_view(request):
 @login_required()
 def userCenterInfo(request):
     #判断用户是否登陆
+    if request.method == 'POST':
+        return addgoods(request)
     userId = request.user.id
     puser = User.objects.get(pk=userId)
     print (puser)

@@ -157,6 +157,7 @@ def buy_now(request):
     userId = request.user.id
     puser = User.objects.get(pk=userId)
     addr = address_info.objects.filter(user=puser.pk)
+    print (addr)
     if not addr:
         addr = ['']
     if request.GET.get("goodsid",None):
@@ -170,7 +171,7 @@ def buy_now(request):
         OrderDetailInfo.objects.create(order=order, goods=goods_info, goods_price=price, count=1)
         goods = buy_goods(goods_info, goodsnum, subtotal)
         print order.pk
-        context ={'goods':[goods], 'orderid':order.pk}
+        context ={'goods':[goods], 'addr':addr[0],'orderid':order.pk}
     else:
         goods_order = cart.objects.filter(isselect=1)
         goods = []
