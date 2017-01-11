@@ -11,10 +11,13 @@
 	<div class="search_bar clearfix">
 		<a href="{% url 'shopping:index' %}" class="logo fl"><img src="/static/images/logo.png"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;用户中心</div>
-		<div class="search_con fr">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
-		</div>		
+		<div class="search_con fl">
+            <form action="{% url 'shopping:search' 'id' 1%}" method="get">
+			<input type="text" class="input_text fl" name="search_good" id="search_text" placeholder="搜索商品">
+			<input type="submit" class="input_btn fr" id="search_button" value="搜索">
+            <p><span id='search_result'></span></p>
+            </form>
+		</div>
 	</div>
 
 
@@ -22,9 +25,9 @@
 		<div class="left_menu_con clearfix">
 			<h3>用户中心</h3>
 			<ul>
-				<li><a href="/userCenterInfo/">· 个人信息</a></li>
-				<li><a href="/userCenterOrder/" class="active">· 全部订单</a></li>
-				<li><a href="/userCenterSite/">· 收货地址</a></li>
+				<li><a href="/userCenter/userCenterInfo/">· 个人信息</a></li>
+				<li><a href="/userCenter/userCenterOrder/" class="active">· 全部订单</a></li>
+				<li><a href="/userCenter/userCenterSite/">· 收货地址</a></li>
 			</ul>
 		</div>
 

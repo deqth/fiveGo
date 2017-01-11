@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
             name='GoodsInfo',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+
                 ('title', models.CharField(max_length=20, verbose_name=b'\xe5\x95\x86\xe5\x93\x81\xe4\xbf\xa1\xe6\x81\xaf')),
                 ('type', models.CharField(max_length=20, verbose_name=b'\xe5\x95\x86\xe5\x93\x81\xe7\xb1\xbb\xe5\x9e\x8b')),
                 ('price', models.DecimalField(verbose_name=b'\xe5\x95\x86\xe5\x93\x81\xe4\xbb\xb7\xe6\xa0\xbc', max_digits=5, decimal_places=2)),
@@ -29,6 +30,7 @@ class Migration(migrations.Migration):
                 'db_table': 'goods',
                 'verbose_name': '\u5546\u54c1\u4fe1\u606f',
                 'verbose_name_plural': '\u5546\u54c1\u4fe1\u606f',
+
             },
         ),
     ]

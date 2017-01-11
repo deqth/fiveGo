@@ -26,20 +26,25 @@ def index(request):
     return render(request, 'shopping/index.html', context)
 
 
+def user_count(func):
+    def inner(request, *args):
+        if request.user.is_authenticated():
+            userId = request.user.id
+            count = cart.objects.filter(user_id=userId).count()
+        else:
+            count = 0
+        return func(request, count, *args)
+    return inner
+
+
 #列表页面，按照attr进行排序，新品为每种类型商品最后两个，并进行分页
-def list(request, type, attr, pIndex):
-    if request.method == 'POST':
-        return addgoods(request)
+@user_count
+def list(request, count, type, attr, pIndex):
     goods = GoodsInfo.objects.all().filter(type=type)
     if attr=='cliNum':
         goods_order = goods.order_by("-"+attr)
     else:
         goods_order = goods.order_by(attr)
-    if request.user.is_authenticated():
-        userId = request.user.id
-        count = cart.objects.filter(user_id=userId).count()
-    else:
-        count = 0
     newgoods = [temp for temp in goods]
     p = Paginator(goods_order, 10)
     pIndex = int(pIndex)
@@ -56,16 +61,10 @@ def list(request, type, attr, pIndex):
 
 
 #搜索页面，get方法获取搜索关键字，将搜索到的商品分页显示
-def search(request, attr, pIndex):
-    if request.method == 'POST':
-        return addgoods(request)
+@user_count
+def search(request, count, attr, pIndex ):
     search_good = request.GET['search_good']
     results = GoodsInfo.objects.filter(info__contains=search_good)
-    if request.user.is_authenticated():
-        userId = request.user.id
-        count = cart.objects.filter(user_id=userId).count()
-    else:
-        count = 0
     results_order = results.order_by(attr)
     p = Paginator(results_order, 10)
     pIndex = int(pIndex)
@@ -86,35 +85,10 @@ def search(request, attr, pIndex):
     return render(request, 'shopping/search.html', context)
 
 
-# 当点击购物车图表或者在详情页加入购入车时，将商品及数量信息加入购物车
-@login_required()
-def addgoods(request):
-    user = request.user
-    userId = request.user.id
-    goodsid = request.POST.get('goodsid')
-    goodsnum = long(request.POST.get('goodsnum'))
-    goods_info = GoodsInfo.objects.get(id=goodsid)
-    try:
-        cart_good = cart.objects.get(goods_info=goodsid)
-        num = cart_good.num
-        cart_good.num = num+goodsnum
-        cart_good.save()
-    except Exception,e:
-        cart.objects.create(num=goodsnum, user=user, goods_info=goods_info, isselect=1)
-    count = cart.objects.filter(user_id=userId).count()
-    return JsonResponse({'count': count})
-
-
 # 商品详情页面，展示商品具体信息
-def detail(request, type, goods_id):
-    if request.method == 'POST':
-        return addgoods(request)
+@user_count
+def detail(request, count, type, goods_id):
     allgoods = GoodsInfo.objects.all().filter(type=type)
-    if request.user.is_authenticated():
-        userId = request.user.id
-        count = cart.objects.filter(user_id=userId).count()
-    else:
-        count = 0
     newgoods = [temp for temp in allgoods]
     goods = GoodsInfo.objects.get(id=goods_id)
     #将用户最近浏览的商品加入session
@@ -137,6 +111,31 @@ def detail(request, type, goods_id):
     context = {'type':type, 'goods':goods, 'newgoods':newgoods[-2:], 'count':count}
     return render(request, 'shopping/detail.html', context)
 
+# 当点击购物车图表或者在详情页加入购入车时，将商品及数量信息加入购物车
+def addgoods(request):
+        user = request.user
+        #判断用户是否登录
+        if request.user.is_authenticated():
+            userId = request.user.id
+            goodsid = request.POST.get('goodsid')
+            goodsnum = long(request.POST.get('goodsnum'))
+            goods_info = GoodsInfo.objects.get(id=goodsid)
+            #查询登录用户点击的商品
+            cart_good = cart.objects.filter(user_id=userId, goods_info=goodsid)
+            #该商品已存在与购物车则数量+1
+            if cart_good:
+                num = cart_good[0].num
+                cart_good[0].num = num + goodsnum
+                cart_good[0].save()
+            #不存在则增加
+            else:
+                cart.objects.create(num=goodsnum, user=user, goods_info=goods_info, isselect=1)
+            cart_goods = cart.objects.filter(user_id=userId)
+            count = cart_goods.count()
+        else:
+            count = 0
+        return JsonResponse({'count': count, 'user':str(user)})
+
 
 # 定义订单页面商品类
 class buy_goods:
@@ -148,15 +147,15 @@ class buy_goods:
 
 
 # 将从详情页面立即购买的商品和购物车里去结算时的商品信息传到订单页面
-@login_required()
+@login_required
 def buy_now(request):
     user = request.user
     userId = request.user.id
     puser = User.objects.get(pk=userId)
     addr = address_info.objects.filter(user=puser.pk)
-    print (addr)
     if not addr:
         addr = ['']
+    #从立即购买处进入订单页面
     if request.GET.get("goodsid",None):
         goodsid = request.GET["goodsid"]
         goodsnum = request.GET["goodsnum"]
@@ -167,8 +166,8 @@ def buy_now(request):
         order = OrderInfo.objects.create(user=user, state=0 , total=subtotal, ordernum=ordernum)
         OrderDetailInfo.objects.create(order=order, goods=goods_info, goods_price=price, count=1)
         goods = buy_goods(goods_info, goodsnum, subtotal)
-        print order.pk
         context ={'goods':[goods], 'addr':addr[0],'orderid':order.pk}
+    #从购物车进入订单页面
     else:
         goods_order = cart.objects.filter(isselect=1)
         goods = []
@@ -193,6 +192,8 @@ def buy_now(request):
             OrderDetailInfo.objects.create(order=order, goods=goods_info, goods_price=price, count=goodsnum)
         context = {'goods':goods,'addr':addr[0], 'orderid':order.pk}
     return render(request,'shopping/place_order.html', context)
+
+
 
 
 

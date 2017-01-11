@@ -15,8 +15,13 @@
             $(".add_goods").click(function () {
                 goodsid = $(this).parent().siblings("#goodsid").text()
 				goodsnum = 1
-                $.post("",{'goodsid':goodsid, 'goodsnum':goodsnum},function(dic){
-					$(".goods_count").text(dic.count)
+                $.post("{% url 'shopping:addgoods' %}",{'goodsid':goodsid, 'goodsnum':goodsnum},function(dic){
+                    if(dic.user=='AnonymousUser'){
+                        window.location.href = "{% url 'userCenter:login' %}"
+                    }
+                    else {
+                        $(".goods_count").text(dic.count)
+                    }
 				})
             })
         })

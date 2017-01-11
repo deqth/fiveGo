@@ -1,13 +1,7 @@
 #coding=utf-8
 import userCenter
-from django.shortcuts import render,redirect
-from django.http import HttpResponse,Http404,HttpResponseRedirect,JsonResponse
-from models import *
-from shopping.models import *
 from django import forms
 from django.contrib import auth
-from django.core.paginator import *
-from django.contrib.auth.decorators import login_required
 from shopping.views import *
 def login_register_split(request,get,post):
     if request.method == 'GET':
@@ -112,8 +106,6 @@ def logout_view(request):
 @login_required()
 def userCenterInfo(request):
     #判断用户是否登陆
-    if request.method == 'POST':
-        return addgoods(request)
     userId = request.user.id
     puser = User.objects.get(pk=userId)
     addr = address_info.objects.filter(user=puser.pk)
