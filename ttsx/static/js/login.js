@@ -37,6 +37,7 @@ $('form').submit(function() {
 		check_user_name();
 		check_pwd();
 	    event.preventDefault();
+
 		if(error_name == false && error_password == false)
 		{
 			$.post("", { username: $('.name_input').val(), pwd: $('.pass_input').val()}, function(data){

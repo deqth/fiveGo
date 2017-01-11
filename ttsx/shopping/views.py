@@ -22,7 +22,6 @@ def index(request):
         count = cart.objects.filter(user_id=userId).count()
     else:
         count = 0
-    print count
     context = {'fruit':fruit[0:4], 'fruit1':fruit[5:8], 'seafood':seafood[0:4], 'seafood1':seafood[5:8], 'meat':meat[0:4], 'meat1':meat[5:8], 'egg':egg[0:4], 'egg1':egg[5:8], 'vegetables':vegetables[0:4], 'vegetables1':vegetables[5:8], 'ice':ice[0:4], 'ice1':ice[0:4], 'count':count}
     return render(request, 'shopping/index.html', context)
 
