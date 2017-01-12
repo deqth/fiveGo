@@ -46,7 +46,7 @@ class OrderDetailInfo(models.Model):
     order = models.ForeignKey(OrderInfo)
     goods = models.ForeignKey(GoodsInfo)
     goods_price = models.DecimalField(max_digits=5,decimal_places=2,verbose_name='商品价格')
-    count = models.DecimalField(max_digits=5,decimal_places=2,verbose_name='商品数量')
+    count = models.IntegerField(verbose_name='商品数量')
     class Meta:
         verbose_name = '订单详情'
         verbose_name_plural = verbose_name
