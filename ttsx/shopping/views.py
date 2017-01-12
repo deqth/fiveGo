@@ -1,6 +1,6 @@
 #coding=utf-8
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 from django.core.paginator import Paginator
 from userCenter.models import *
 from django.contrib.auth.models import User
@@ -193,6 +193,31 @@ def buy_now(request):
         context = {'goods':goods,'addr':addr[0], 'orderid':order.pk}
     return render(request,'shopping/place_order.html', context)
 
+
+#从未完成订单页面到提交订单页面
+@login_required()
+def notpaid(request):
+    userId = request.user.id
+    puser = User.objects.get(pk=userId)
+    addr = address_info.objects.filter(user=puser.pk)
+    if not addr:
+        addr = ['']
+    ordernum = request.GET.get('ordernum')
+    orderinfo = OrderInfo.objects.get(ordernum=ordernum)
+    orderdetailinfo = OrderDetailInfo.objects.filter(order_id=orderinfo)
+    goods = []
+    index = 0
+    for detailinfo in orderdetailinfo:
+        goodsid = detailinfo.goods_id
+        goods_info = GoodsInfo.objects.get(pk=goodsid)
+        goodsnum = detailinfo.count
+        price = goods_info.price
+        subtotal = int(goodsnum)*price
+        index += 1
+        good = buy_goods(goods_info, goodsnum, subtotal, index)
+        goods.append(good)
+    context = {'goods':goods, 'addr':addr[0], 'orderid':orderinfo.pk}
+    return render(request, 'shopping/place_order.html', context)
 
 
 

@@ -93,7 +93,10 @@
         {#当input框数字变化时#}
         $(".num_add .num_show").bind('input propertychange', function() {
             price = parseFloat($(this).parents("ul").children(".col05").text())
-            num = $(this).val()
+            num = parseInt($(this).val())
+            if(isNaN(num)){
+                num=0
+            }
             subtotal = (num * price).toFixed(2) + '元'
             $(this).parents("ul").children(".col07").text(subtotal)
             cart_good_id = $(this).parents("ul").children("#cart_good_id").text()
@@ -133,7 +136,11 @@
         $(".cart_list_td .col01 input").each(function () {
             if($(this).is(':checked')){
                 total = total+parseFloat($(this).parents("ul").children(".col07").text())
-                num = num+parseFloat($(this).parents("ul").find(".num_show").val())
+                num1 = parseFloat($(this).parents("ul").find(".num_show").val())
+                 if(isNaN(num1)){
+                    num1=0
+                 }
+                num = num+num1
             }
         })
         $(".settlements .col03 em").text(total.toFixed(2))

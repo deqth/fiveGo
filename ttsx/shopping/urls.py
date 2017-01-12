@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^detail/(\w+)/(\d+)$', views.detail, name='detail'),#详情页
     url(r'^addgoods/$', views.addgoods, name='addgoods'),
     url(r'^order/$', views.buy_now, name='order'),#立即购买
+    url(r'^notpaid/$', views.notpaid, name='notpaid'),
 ]
 
 
