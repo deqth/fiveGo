@@ -90,6 +90,16 @@
             }
             total()
         });
+        {#当input框数字变化时#}
+        $(".num_add .num_show").bind('input propertychange', function() {
+            price = parseFloat($(this).parents("ul").children(".col05").text())
+            num = $(this).val()
+            subtotal = (num * price).toFixed(2) + '元'
+            $(this).parents("ul").children(".col07").text(subtotal)
+            cart_good_id = $(this).parents("ul").children("#cart_good_id").text()
+            $.get("{% url 'userCenter:cartchange' %}",{'num':num, 'cart_good_id':cart_good_id})
+            total()
+        })
 
     });
     {#定义添加函数，当按下+时，数量显示值+1，同时，计算小计并更新数据库的商品数.click事件发生时，调用此函数.#}
