@@ -172,4 +172,4 @@ def updatehandler(request):
     temp.zipcode=uzipcode
     temp.user=request.user
     temp.save()
-    return redirect('/userCenterSite/')
+    return redirect('/userCenter/userCenterSite/')
