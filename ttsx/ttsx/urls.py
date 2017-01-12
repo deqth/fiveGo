@@ -24,3 +24,4 @@ urlpatterns = [
     url(r'^userCenter/', include('userCenter.urls', namespace='userCenter')),
     url(r'^favicon.ico$', RedirectView.as_view(url=r'static/favicon.ico')),
 ]+ static(settings.MEDIA_URL , document_root=settings.MEDIA_ROOT)
+

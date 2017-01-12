@@ -12,6 +12,13 @@
     <script type="text/javascript", src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
     <script type="text/javascript">
     $(function () {
+        $(".settlements .col04 a").click(function (event) {
+            var flag={{ noGoods }};
+            if(flag){
+            alert ('亲，选点宝贝再结账吧')
+            event.preventDefault();
+            }
+        })
         {#页面加载完成后进行初始化，包括小计，商品数，总价，总计商品数#}
         $(".cart_list_td").each(function () {
             $(this).children(".col05")
@@ -82,7 +89,8 @@
                 })
             }
             total()
-        })
+        });
+
     });
     {#定义添加函数，当按下+时，数量显示值+1，同时，计算小计并更新数据库的商品数.click事件发生时，调用此函数.#}
     function add1(obj) {

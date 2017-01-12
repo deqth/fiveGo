@@ -23,7 +23,11 @@ def cart(request):
     userId = request.user.id
     userCenter.models.cart.objects.filter(user_id=userId).update(isselect=1)
     cartAll = userCenter.models.cart.objects.filter(user_id=userId)
-    context = {'cartAll':cartAll}
+    if cartAll.exists():
+        noGoods=0
+    else:
+        noGoods=1
+    context = {'cartAll':cartAll,'noGoods':noGoods}
     return render(request,'userCenter/cart.html', context)
 
 
@@ -172,4 +176,4 @@ def updatehandler(request):
     temp.zipcode=uzipcode
     temp.user=request.user
     temp.save()
-    return redirect('/userCenterSite/')
+    return redirect('/userCenter/userCenterSite/')
