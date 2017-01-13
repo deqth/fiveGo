@@ -13,10 +13,26 @@
     <script type="text/javascript">
     $(function () {
         $(".settlements .col04 a").click(function (event) {
-            var flag={{ noGoods }};
-            if(flag){
+            var flag1={{ noGoods }};
+            if(flag1){
             alert ('亲，选点宝贝再结账吧')
             event.preventDefault();
+            }
+            else{
+                flag2 = true
+                $(".cart_list_td .col01 input").each(function() {
+                    if($(this).is(':checked')){
+                        flag2 = false
+                        return false
+                    }
+                    else{
+                        flag2 = true
+                    }
+                })
+                if(flag2){
+                    alert ('亲，选点宝贝再结账吧')
+                    event.preventDefault();
+                }
             }
         })
         {#页面加载完成后进行初始化，包括小计，商品数，总价，总计商品数#}

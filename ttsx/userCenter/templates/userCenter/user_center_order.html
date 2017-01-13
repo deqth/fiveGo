@@ -63,7 +63,7 @@
                                         <td width="15%"><a href="#" class="oper_btn">查看物流</a></td>
                                     {% elif temp.state == 0%}
                                         <td width="15%">未付款</td>
-                                        <td width="15%"><a href="{% url 'shopping:notpaid' %}?ordernum={{ temp.ordernum }}" class="oper_btn">去付款{{ temp.ordernum }}</a></td>
+                                        <td width="15%"><a href="{% url 'shopping:notpaid' %}?ordernum={{ temp.ordernum }}" class="oper_btn">去付款</a></td>
                                     {% endif %}
                             </tr>
                         </tbody>

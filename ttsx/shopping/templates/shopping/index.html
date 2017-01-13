@@ -81,7 +81,7 @@
 				{%for temp in fruit%}
 				<li>
 					<h4><a href="{% url 'shopping:detail' temp.type temp.id%}">{{temp.title}}</a></h4>
-					<a href="{% url 'shopping:detail' temp.type temp.id%}"><img src="{{temp.smallImg.url}}"></a>
+					<a href="{% url 'shopping:detail' temp.type temp.id%}"><img src="{{temp.smallImg}}"></a>
 					<div class="prize">¥ {{temp.price}}</div>
 				</li>
 				{%endfor%}
